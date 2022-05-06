@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Dwarf",
+    "hp": 100.0,
+    "skillAttack": 0.1,
+    "skillDefense": 0.2
+  },
+  {
+    "name": "Troll",
+    "hp": 100.0,
+    "skillAttack": 0.3,
+    "skillDefense": 0.3
+  },
+  {
+    "name": "Golem",
+    "hp": 100.0,
+    "skillAttack": 0.5,
+    "skillDefense": 0.5
+  },
+  {
+    "name": "Witch",
+    "hp": 100.0,
+    "skillAttack": 0.3,
+    "skillDefense": 0.1
+  }
+]
