@@ -1,3 +1,4 @@
+import Menu.MainMenu;
 import Model.Hero;
 import Model.Item;
 import Model.SimpleItem;
@@ -9,7 +10,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("aaa");
+
+        //new MainMenu().run();
+
+
         FileService fileService = new JsonFileService();
 
         try {
@@ -22,11 +26,11 @@ public class Main {
 
         }
 
-//        try {
-//            fileService.setAllSimpleItem("item.json");
-//        } catch (IOException ignored) {
-//
-//        }
+        try {
+            fileService.setAllSimpleItem("item.json");
+        } catch (IOException ignored) {
+
+        }
 
         try {
             List<SimpleItem> list = fileService.getAllSimpleItem("item.json");
@@ -37,10 +41,5 @@ public class Main {
 
         }
 
-//        try {
-//            fileService.setAllHero();
-//        } catch (IOException ignored) {
-//            System.out.println(ignored.getMessage());
-//        }
     }
 }

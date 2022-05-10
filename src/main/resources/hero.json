@@ -1,26 +1,26 @@
 [
   {
-    "name": "Dwarf",
+    "name": "Гном",
     "hp": 100.0,
-    "skillAttack": 0.1,
-    "skillDefense": 0.2
+    "skillAttack": 0.6,
+    "skillDefense": 0.4
   },
   {
-    "name": "Troll",
-    "hp": 100.0,
-    "skillAttack": 0.3,
-    "skillDefense": 0.3
-  },
-  {
-    "name": "Golem",
+    "name": "Тролль",
     "hp": 100.0,
     "skillAttack": 0.5,
-    "skillDefense": 0.5
+    "skillDefense": 0.8
   },
   {
-    "name": "Witch",
+    "name": "Голем",
     "hp": 100.0,
-    "skillAttack": 0.3,
-    "skillDefense": 0.1
+    "skillAttack": 0.4,
+    "skillDefense": 0.9
+  },
+  {
+    "name": "Колдун",
+    "hp": 100.0,
+    "skillAttack": 0.9,
+    "skillDefense": 0.3
   }
 ]

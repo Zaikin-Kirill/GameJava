@@ -14,7 +14,7 @@ import java.util.List;
 
 public class JsonFileService implements FileService {
 
-    private final String directory = "src/main/resources/";
+    //private final String directory = "src/main/resources/";
 
     public List<Hero> getAllHero(String fileName) throws FileNotFoundException {
         Type heroListType = new TypeToken<ArrayList<Hero>>() {
@@ -26,6 +26,11 @@ public class JsonFileService implements FileService {
         Type simpleItemListType = new TypeToken<ArrayList<SimpleItem>>() {
         }.getType();
         return new Gson().fromJson(new BufferedReader(new FileReader(directory + fileName)), simpleItemListType);
+    }
+
+    @Override
+    public String getRulesFromTXT(String fileName) {
+        return null;
     }
 
     public void setAllSimpleItem(String fileName) throws IOException {

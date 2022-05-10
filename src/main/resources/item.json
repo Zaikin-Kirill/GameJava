@@ -1,1 +1,62 @@
-[{"damage":2.5,"defense":1.0,"name":"Axe"},{"damage":3.0,"defense":1.0,"name":"Onion"},{"damage":0.5,"defense":3.0,"name":"Helmet"},{"damage":1.0,"defense":5.0,"name":"Armor"}]
+[
+  {
+    "damage": 3.5,
+    "defense": 1.5,
+    "name": "Топор"
+  },
+  {
+    "damage": 2.5,
+    "defense": 0.2,
+    "name": "Лук"
+  },
+  {
+    "damage": 4.0,
+    "defense": 1.1,
+    "name": "Меч"
+  },
+  {
+    "damage": 3.0,
+    "defense": 0.8,
+    "name": "Дубина"
+  },
+  {
+    "damage": 3.0,
+    "defense": 1.0,
+    "name": "Тесак"
+  },
+  {
+    "damage": 1.0,
+    "defense": 1.4,
+    "name": "Посох"
+  },
+  {
+    "damage": 0.5,
+    "defense": 2.0,
+    "name": "Шлем"
+  },
+  {
+    "damage": 0.8,
+    "defense": 3.0,
+    "name": "Щит"
+  },
+  {
+    "damage": 0.1,
+    "defense": 2.0,
+    "name": "Амулет"
+  },
+  {
+    "damage": 0.2,
+    "defense": 2.5,
+    "name": "Шапка"
+  },
+  {
+    "damage": 0.3,
+    "defense": 2.8,
+    "name": "Накидка"
+  },
+  {
+    "damage": 1.0,
+    "defense": 5.0,
+    "name": "Доспехи"
+  }
+]
