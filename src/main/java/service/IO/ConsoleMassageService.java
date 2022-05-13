@@ -1,9 +1,20 @@
-package Service.IO;
+package service.IO;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class ConsoleMassageService implements MassageService {
+
+    private static ConsoleMassageService INSTANCE;
+
+    private ConsoleMassageService() {}
+
+    public static ConsoleMassageService getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ConsoleMassageService();
+        }
+        return INSTANCE;
+    }
 
     @Override
     public void print(String text) {
@@ -13,7 +24,7 @@ public class ConsoleMassageService implements MassageService {
     @Override
     public int inputNumber() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        int i = -1;
+        int i;
         if (scanner.hasNextInt()) {
             i = scanner.nextInt() - 1;
         } else {

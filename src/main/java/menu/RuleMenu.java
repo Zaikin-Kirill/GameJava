@@ -1,7 +1,7 @@
-package Menu;
+package menu;
 
-import Service.File.TextFileService;
-import Service.IO.ConsoleMassageService;
+import service.file.TextFileService;
+import service.IO.ConsoleMassageService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class RuleMenu extends MenuEntry {
         super(title);
     }
 
-    private List<MenuEntry> menu = new ArrayList<>();
+    private final List<MenuEntry> menu = new ArrayList<>();
 
 
     @Override
@@ -23,7 +23,7 @@ public class RuleMenu extends MenuEntry {
         addPoint(new ExitMenu("2. Выход"));
         super.printTitle("Правила игры:");
         printTextRules();
-        super.PrintMenu(menu);
+        super.printMenu(menu);
         super.selectItemMenu(menu);
     }
 
@@ -33,9 +33,9 @@ public class RuleMenu extends MenuEntry {
 
     private void printTextRules(){
         try {
-            new ConsoleMassageService().print(new TextFileService().getRulesFromTXT("rules.txt"));
+            ConsoleMassageService.getInstance().print(new TextFileService().readTextFromFile("rules.txt"));
         } catch (IOException e) {
-            new ConsoleMassageService().print(e.getMessage());
+            ConsoleMassageService.getInstance().print(e.getMessage());
         }
     }
 }

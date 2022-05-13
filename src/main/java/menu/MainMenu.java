@@ -1,10 +1,9 @@
-package Menu;
+package menu;
 
 import java.util.*;
 
 public class MainMenu extends MenuEntry {
 
-    //private Map<String, MenuEntry> menu = new TreeMap<>();
     private final List<MenuEntry> menu = new ArrayList<>();
 
     public MainMenu(){
@@ -22,7 +21,7 @@ public class MainMenu extends MenuEntry {
         //printTitle("Привет, юзер! Давай сыграем в игру 'Битва Героев'. \nВыбери действие:");
         super.printTitle("Привет, юзер! Давай сыграем в игру 'Битва Героев'. \nВыбери действие:");
         //PrintMenu(menu);
-        super.PrintMenu(menu);
+        super.printMenu(menu);
         super.selectItemMenu(menu);
     }
 

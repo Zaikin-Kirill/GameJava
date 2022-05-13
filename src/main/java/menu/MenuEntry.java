@@ -1,11 +1,11 @@
-package Menu;
+package menu;
 
-import Service.IO.ConsoleMassageService;
+import service.IO.ConsoleMassageService;
 
 import java.io.IOException;
 import java.util.List;
 
-public class MenuEntry {
+public abstract class MenuEntry {
 
     private String title;
 
@@ -24,28 +24,28 @@ public class MenuEntry {
         this.title = title;
     }
 
-    public void run(){}
+    public abstract void run();
 
     public void printTitle(String titleText) {
-        new ConsoleMassageService().print(titleText);
+        ConsoleMassageService.getInstance().print(titleText);
     }
 
-    public void PrintMenu(List<MenuEntry> menu) {
-        ConsoleMassageService console = new ConsoleMassageService();
+    public void printMenu(List<MenuEntry> menu) {
+
         for (MenuEntry point: menu) {
-            console.print(point.getTitle());
+            ConsoleMassageService.getInstance().print(point.getTitle());
         }
     }
 
     public void selectItemMenu(List<MenuEntry> menu){
         try {
-            int inputNumber = new ConsoleMassageService().inputNumber();
+            int inputNumber = ConsoleMassageService.getInstance().inputNumber();
             menu.get(inputNumber).run();
         } catch (IOException e) {
-            new ConsoleMassageService().print(e.getMessage());
+            ConsoleMassageService.getInstance().print(e.getMessage());
             selectItemMenu(menu);
         } catch (IndexOutOfBoundsException e){
-            new ConsoleMassageService().print("Введите число из диапазона меню");
+            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
             selectItemMenu(menu);
         }
     }
