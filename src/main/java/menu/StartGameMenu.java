@@ -7,15 +7,17 @@ public class StartGameMenu extends MenuEntry {
 
     private final List<MenuEntry> menu = new ArrayList<>();
 
+    public StartGameMenu() {}
+
     public StartGameMenu(String title) {
         super(title);
     }
 
     @Override
     public void run(){
-        addPoint(new MainMenu("1. Вернуться в меню"));
+        addPoint(new MainMenu("1. Вернуться в главное меню"));
         addPoint(new ExitMenu("2. Выход"));
-        super.printTitle("Тут игра");
+        //super.printTitle("Тут игра");
         super.printMenu(menu);
         super.selectItemMenu(menu);
     }

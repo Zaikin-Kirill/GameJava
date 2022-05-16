@@ -1,5 +1,8 @@
 package menu;
 
+import model.Hero;
+import model.SimpleItem;
+import service.ChoiceItem.ChoiceService;
 import service.IO.ConsoleMassageService;
 
 import java.io.IOException;
@@ -47,6 +50,30 @@ public abstract class MenuEntry {
         } catch (IndexOutOfBoundsException e){
             ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
             selectItemMenu(menu);
+        }
+    }
+
+    public <T> void selectItemMenuWithSelectHero(List<MenuEntry> menu, List<T> listT){
+        try {
+            int inputNumber = ConsoleMassageService.getInstance().inputNumber();
+            int sizeListT = listT.size();
+            if (inputNumber < sizeListT){
+                new ChoiceService().saveSelected(listT.get(inputNumber));
+                if (!listT.isEmpty() && listT.get(0) instanceof Hero){
+                    new SelectArtefactMenu().run();
+                }
+                else if (!listT.isEmpty() && listT.get(0) instanceof SimpleItem){
+                    new StartGameMenu().run();
+                }
+            } else {
+                menu.get(inputNumber - sizeListT).run();
+            }
+        } catch (IOException e) {
+            ConsoleMassageService.getInstance().print(e.getMessage());
+            selectItemMenuWithSelectHero(menu, listT);
+        } catch (IndexOutOfBoundsException e){
+            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
+            selectItemMenuWithSelectHero(menu, listT);
         }
     }
 }

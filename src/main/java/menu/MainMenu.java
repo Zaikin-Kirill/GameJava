@@ -16,7 +16,8 @@ public class MainMenu extends MenuEntry {
     @Override
     public void run() {
         addPoint(new RuleMenu("1. Правила игры"));
-        addPoint(new StartGameMenu("2. Играть"));
+        //addPoint(new StartGameMenu("2. Играть"));
+        addPoint(new SelectHeroMenu("2. Играть"));
         addPoint(new ExitMenu("3. Выход"));
         //printTitle("Привет, юзер! Давай сыграем в игру 'Битва Героев'. \nВыбери действие:");
         super.printTitle("Привет, юзер! Давай сыграем в игру 'Битва Героев'. \nВыбери действие:");
