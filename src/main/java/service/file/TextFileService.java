@@ -1,24 +1,24 @@
 package service.file;
 
-import model.Hero;
-import model.Item;
-import model.SimpleItem;
-import com.google.gson.Gson;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TextFileService implements FileService {
 
     public String readTextFromFile(String fileName) throws IOException {
         StringBuilder text = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader(directory + fileName))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(readDirectory + fileName))) {
             String str;
             while ((str = br.readLine()) != null) {
                 text.append(str);
             }
             return text.toString();
+        }
+    }
+
+    @Override
+    public void writeTextToFile(String fileName, String text) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveDirectory + fileName))) {
+            writer.write(text);
         }
     }
 

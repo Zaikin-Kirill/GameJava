@@ -1,7 +1,7 @@
 package menu;
 
 import service.file.TextFileService;
-import service.IO.ConsoleMassageService;
+import service.io.ConsoleMassageService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,9 @@ public class RuleMenu extends MenuEntry {
         super.printTitle("Правила игры:");
         printTextRules();
         super.printMenu(menu);
-        super.selectItemMenu(menu);
+        int _selectedNumberUser = super.selectedNumberUser();
+        super.selectItemMenu(menu, _selectedNumberUser);
+        //super.selectItemMenu(menu);
     }
 
     private void addPoint(MenuEntry entry) {

@@ -17,9 +17,11 @@ public class StartGameMenu extends MenuEntry {
     public void run(){
         addPoint(new MainMenu("1. Вернуться в главное меню"));
         addPoint(new ExitMenu("2. Выход"));
-        //super.printTitle("Тут игра");
+        super.printTitle("Упс, игры еще нет :(");
         super.printMenu(menu);
-        super.selectItemMenu(menu);
+        int _selectedNumberUser = super.selectedNumberUser();
+        super.selectItemMenu(menu, _selectedNumberUser);
+        //super.selectItemMenu(menu);
     }
 
     private void addPoint(MenuEntry entry) {

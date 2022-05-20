@@ -1,17 +1,15 @@
 package service.file;
 
-import model.Hero;
-import model.SimpleItem;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 public interface FileService {
 
-    String directory = "src/main/resources/";
+    String readDirectory = "src/main/resources/";
+    String saveDirectory = "src/main/resources/savegame/";
 
     String readTextFromFile(String fileName) throws IOException;
+
+    void writeTextToFile(String fileName, String text) throws IOException;
 
 //    void setAllHero(String fileName) throws IOException;
 //    void setAllSimpleItem(String fileName) throws IOException;

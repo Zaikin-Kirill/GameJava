@@ -6,7 +6,7 @@ public class MainMenu extends MenuEntry {
 
     private final List<MenuEntry> menu = new ArrayList<>();
 
-    public MainMenu(){
+    public MainMenu() {
     }
 
     public MainMenu(String title) {
@@ -23,14 +23,15 @@ public class MainMenu extends MenuEntry {
         super.printTitle("Привет, юзер! Давай сыграем в игру 'Битва Героев'. \nВыбери действие:");
         //PrintMenu(menu);
         super.printMenu(menu);
-        super.selectItemMenu(menu);
+        int _selectedNumberUser = super.selectedNumberUser();
+        super.selectItemMenu(menu, _selectedNumberUser);
+//        super.selectItemMenu(menu);
     }
 
 
     private void addPoint(MenuEntry entry) {
         menu.add(entry);
     }
-
 
 
 }

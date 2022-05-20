@@ -1,22 +1,45 @@
 package service.ChoiceItem;
 
 import model.Hero;
-import model.SimpleItem;
-import service.IO.ConsoleMassageService;
+import model.Item;
+import service.file.TextFileService;
+import service.io.ConsoleMassageService;
+import service.parser.JsonParserService;
 
-public class ChoiceService {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-    public <T> void saveSelected(T item){
-        //сохранение в файл
+public abstract class ChoiceService {
 
-        if (item instanceof Hero hero){
-            ConsoleMassageService.getInstance().print("Вы выбрали героя:");
-            ConsoleMassageService.getInstance().print(hero.toString());
+    private static final byte countItems = 2;
+
+    public static byte getCountItems() {
+        return countItems;
+    }
+
+    public void saveSelectedHero(Hero hero, String fileName) throws IOException {
+        new TextFileService().writeTextToFile(fileName, new JsonParserService().parseHeroToString(hero));
+    }
+
+    public List<Item> saveSelectedItem(Item artefact, List<Item> listArtefact, String fileName) throws IOException {
+        if (listArtefact == null) {
+            listArtefact = createListItemsGamer();
         }
-        else if (item instanceof SimpleItem simpleItem) {
-            ConsoleMassageService.getInstance().print("Вы выбрали артефакт:");
-            ConsoleMassageService.getInstance().print(simpleItem.toString());
+        if (listArtefact.size() + 1 > countItems){
+            listArtefact = createListItemsGamer();
         }
 
+        listArtefact.add(artefact);
+
+        if (listArtefact.size() == countItems) {
+            new TextFileService().writeTextToFile(fileName, new JsonParserService().parseListItemsToString(listArtefact));
+        }
+
+        return listArtefact;
+    }
+
+    private List<Item> createListItemsGamer(){
+        return new ArrayList<>(countItems);
     }
 }

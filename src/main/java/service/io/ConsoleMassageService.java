@@ -1,4 +1,4 @@
-package service.IO;
+package service.io;
 
 import java.io.IOException;
 import java.util.Scanner;

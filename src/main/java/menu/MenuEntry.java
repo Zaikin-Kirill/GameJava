@@ -1,9 +1,6 @@
 package menu;
 
-import model.Hero;
-import model.SimpleItem;
-import service.ChoiceItem.ChoiceService;
-import service.IO.ConsoleMassageService;
+import service.io.ConsoleMassageService;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +9,7 @@ public abstract class MenuEntry {
 
     private String title;
 
-    public MenuEntry(){
+    public MenuEntry() {
     }
 
     public MenuEntry(String title) {
@@ -35,45 +32,54 @@ public abstract class MenuEntry {
 
     public void printMenu(List<MenuEntry> menu) {
 
-        for (MenuEntry point: menu) {
+        for (MenuEntry point : menu) {
             ConsoleMassageService.getInstance().print(point.getTitle());
         }
     }
 
-    public void selectItemMenu(List<MenuEntry> menu){
+    public int selectedNumberUser() {
+        int inputNumber = -1;
         try {
-            int inputNumber = ConsoleMassageService.getInstance().inputNumber();
-            menu.get(inputNumber).run();
+            inputNumber = ConsoleMassageService.getInstance().inputNumber();
         } catch (IOException e) {
             ConsoleMassageService.getInstance().print(e.getMessage());
-            selectItemMenu(menu);
-        } catch (IndexOutOfBoundsException e){
-            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
-            selectItemMenu(menu);
+            selectedNumberUser();
         }
+        return inputNumber;
     }
 
-    public <T> void selectItemMenuWithSelectHero(List<MenuEntry> menu, List<T> listT){
-        try {
-            int inputNumber = ConsoleMassageService.getInstance().inputNumber();
-            int sizeListT = listT.size();
-            if (inputNumber < sizeListT){
-                new ChoiceService().saveSelected(listT.get(inputNumber));
-                if (!listT.isEmpty() && listT.get(0) instanceof Hero){
-                    new SelectArtefactMenu().run();
-                }
-                else if (!listT.isEmpty() && listT.get(0) instanceof SimpleItem){
-                    new StartGameMenu().run();
-                }
-            } else {
-                menu.get(inputNumber - sizeListT).run();
-            }
-        } catch (IOException e) {
-            ConsoleMassageService.getInstance().print(e.getMessage());
-            selectItemMenuWithSelectHero(menu, listT);
-        } catch (IndexOutOfBoundsException e){
-            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
-            selectItemMenuWithSelectHero(menu, listT);
-        }
+
+    public void selectItemMenu(List<MenuEntry> menu, int indexMenu) throws IndexOutOfBoundsException {
+        menu.get(indexMenu).run();
+//        try {
+//            menu.get(indexMenu).run();
+//        } catch (IndexOutOfBoundsException e) {
+//            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
+//            selectItemMenu(menu, selectedNumberUser());
+//        }
     }
+
+//    public <T> void selectItemMenuWithSelectHero(List<MenuEntry> menu, List<T> listT){
+//        try {
+//            int inputNumber = ConsoleMassageService.getInstance().inputNumber();
+//            int sizeListT = listT.size();
+//            if (inputNumber < sizeListT){
+//                new ChoiceService().saveSelected(listT.get(inputNumber));
+//                if (!listT.isEmpty() && listT.get(0).getClass() == Hero.class){
+//                    new SelectArtefactMenu().run();
+//                }
+//                else if (!listT.isEmpty() && listT.get(0).getClass() == SimpleItem.class){
+//                    new StartGameMenu().run();
+//                }
+//            } else {
+//                menu.get(inputNumber - sizeListT).run();
+//            }
+//        } catch (IOException e) {
+//            ConsoleMassageService.getInstance().print(e.getMessage());
+//            selectItemMenuWithSelectHero(menu, listT);
+//        } catch (IndexOutOfBoundsException e){
+//            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
+//            selectItemMenuWithSelectHero(menu, listT);
+//        }
+//    }
 }
