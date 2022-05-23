@@ -2,12 +2,22 @@ package model;
 
 import java.util.Objects;
 
+/**
+ * Класс артефакта.
+ */
 public class SimpleItem extends Item {
 
     private float damage;
     private float defense;
 
-    public SimpleItem(String name, float damage, float defense){
+    /**
+     * Создание артефакта.
+     *
+     * @param name    - название артефакта
+     * @param damage  - урон артефакта
+     * @param defense - защита артефакта
+     */
+    public SimpleItem(String name, float damage, float defense) {
         super(name);
         this.damage = damage;
         this.defense = defense;
@@ -31,18 +41,24 @@ public class SimpleItem extends Item {
 
     @Override
     public String toString() {
-        return "Артефакт: " +
-                "Название = " + super.getName() +
-                ", Урон = " + damage +
-                ", Защита = " + defense +
-                ';';
+        return "Артефакт: "
+                + "Название = " + super.getName()
+                + ", Урон = " + damage
+                + ", Защита = " + defense
+                + ';';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         SimpleItem item = (SimpleItem) o;
         return Float.compare(item.damage, damage) == 0 && Float.compare(item.defense, defense) == 0;
     }

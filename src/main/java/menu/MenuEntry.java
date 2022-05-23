@@ -1,12 +1,17 @@
 package menu;
 
-import service.io.ConsoleMassageService;
-
 import java.io.IOException;
 import java.util.List;
+import service.io.ConsoleMassageService;
 
+/**
+ * Абстрактный класс меню.
+ */
 public abstract class MenuEntry {
 
+    /**
+     * Заголовок меню.
+     */
     private String title;
 
     public MenuEntry() {
@@ -26,10 +31,20 @@ public abstract class MenuEntry {
 
     public abstract void run();
 
+    /**
+     * Вывод на экран начального текста.
+     *
+     * @param titleText  - текст для вывода
+     */
     public void printTitle(String titleText) {
         ConsoleMassageService.getInstance().print(titleText);
     }
 
+    /**
+     * Вывод на экран заголовков меню.
+     *
+     * @param menu - список меню
+     */
     public void printMenu(List<MenuEntry> menu) {
 
         for (MenuEntry point : menu) {
@@ -37,6 +52,11 @@ public abstract class MenuEntry {
         }
     }
 
+    /**
+     * Получение введенной пользователем цифры.
+     *
+     * @return выбранная пользователем цифра
+     */
     public int selectedNumberUser() {
         int inputNumber = -1;
         try {
@@ -49,37 +69,8 @@ public abstract class MenuEntry {
     }
 
 
-    public void selectItemMenu(List<MenuEntry> menu, int indexMenu) throws IndexOutOfBoundsException {
+    public void selectItemMenu(List<MenuEntry> menu, int indexMenu)
+            throws IndexOutOfBoundsException {
         menu.get(indexMenu).run();
-//        try {
-//            menu.get(indexMenu).run();
-//        } catch (IndexOutOfBoundsException e) {
-//            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
-//            selectItemMenu(menu, selectedNumberUser());
-//        }
     }
-
-//    public <T> void selectItemMenuWithSelectHero(List<MenuEntry> menu, List<T> listT){
-//        try {
-//            int inputNumber = ConsoleMassageService.getInstance().inputNumber();
-//            int sizeListT = listT.size();
-//            if (inputNumber < sizeListT){
-//                new ChoiceService().saveSelected(listT.get(inputNumber));
-//                if (!listT.isEmpty() && listT.get(0).getClass() == Hero.class){
-//                    new SelectArtefactMenu().run();
-//                }
-//                else if (!listT.isEmpty() && listT.get(0).getClass() == SimpleItem.class){
-//                    new StartGameMenu().run();
-//                }
-//            } else {
-//                menu.get(inputNumber - sizeListT).run();
-//            }
-//        } catch (IOException e) {
-//            ConsoleMassageService.getInstance().print(e.getMessage());
-//            selectItemMenuWithSelectHero(menu, listT);
-//        } catch (IndexOutOfBoundsException e){
-//            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
-//            selectItemMenuWithSelectHero(menu, listT);
-//        }
-//    }
 }

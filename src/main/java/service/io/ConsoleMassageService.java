@@ -3,12 +3,40 @@ package service.io;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ConsoleMassageService implements MassageService {
+/**
+ * Класс ввода-вывода в консоль.
+ */
+public class ConsoleMassageService implements MessageService {
+
+    /**
+     * Перечисление цветов текста.
+     */
+    public enum Color {
+        PURPLE("\u001B[35m"),
+        GREEN("\u001B[32m"),
+        RESET("\u001B[0m");
+
+        private final String code;
+
+        Color(String code) {
+            this.code = code;
+        }
+
+        public String getCode() {
+            return code;
+        }
+    }
 
     private static ConsoleMassageService INSTANCE;
 
-    private ConsoleMassageService() {}
+    private ConsoleMassageService() {
+    }
 
+    /**
+     * Получение ссылки на ConsoleMassageService.
+     *
+     * @return - ConsoleMassageService
+     */
     public static ConsoleMassageService getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ConsoleMassageService();
@@ -19,6 +47,11 @@ public class ConsoleMassageService implements MassageService {
     @Override
     public void print(String text) {
         System.out.println(text);
+    }
+
+    @Override
+    public void print(String text, Color color) {
+        System.out.println(color.getCode() + text + Color.RESET.getCode());
     }
 
     @Override

@@ -1,5 +1,8 @@
 package menu;
 
+/**
+ * Меню выхода из программы.
+ */
 public class ExitMenu extends MenuEntry {
 
 
@@ -8,7 +11,7 @@ public class ExitMenu extends MenuEntry {
     }
 
     @Override
-    public void run(){
+    public void run() {
         super.printTitle("До новых встреч!");
         System.exit(0);
     }

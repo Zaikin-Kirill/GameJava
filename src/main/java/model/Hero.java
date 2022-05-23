@@ -2,20 +2,39 @@ package model;
 
 import java.util.Objects;
 
+/**
+ * Класс героя.
+ */
 public class Hero {
 
-    private  String name;
+    private String name;
     private float hp;
     private float skillAttack;
     private float skillDefense;
 
-    public Hero(String name, float skillAttack, float skillDefense){
+    /**
+     * Создание героя.
+     *
+     * @param name         - название героя
+     * @param skillAttack  - скилл атаки героя
+     * @param skillDefense - скилл защиты героя
+     */
+    public Hero(String name, float skillAttack, float skillDefense) {
         this.name = name;
         this.hp = 100;
         this.skillDefense = skillDefense;
         this.skillAttack = skillAttack;
     }
-    public Hero(String name, float hp, float skillAttack, float skillDefense){
+
+    /**
+     * Создание героя.
+     *
+     * @param name         - название героя
+     * @param hp           - здоровье героя
+     * @param skillAttack  - скилл атаки героя
+     * @param skillDefense - скилл защиты героя
+     */
+    public Hero(String name, float hp, float skillAttack, float skillDefense) {
         this.name = name;
         this.hp = hp;
         this.skillDefense = skillDefense;
@@ -56,20 +75,27 @@ public class Hero {
 
     @Override
     public String toString() {
-        return "Герой: " +
-                "Имя = '" + name + '\'' +
-                ", Жизни = " + hp +
-                ", Навык атаки = " + skillAttack +
-                ", Навык защиты = " + skillDefense +
-                ';';
+        return "Герой: "
+                + "Имя = '" + name + '\''
+                + ", Жизни = " + hp
+                + ", Навык атаки = " + skillAttack
+                + ", Навык защиты = " + skillDefense
+                + ';';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Hero hero = (Hero) o;
-        return Float.compare(hero.hp, hp) == 0 && Float.compare(hero.skillAttack, skillAttack) == 0 && Float.compare(hero.skillDefense, skillDefense) == 0 && Objects.equals(name, hero.name);
+        return Float.compare(hero.hp, hp) == 0
+                && Float.compare(hero.skillAttack, skillAttack) == 0
+                && Float.compare(hero.skillDefense, skillDefense) == 0
+                && Objects.equals(name, hero.name);
     }
 
     @Override

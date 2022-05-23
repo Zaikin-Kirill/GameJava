@@ -1,16 +1,20 @@
 package menu;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Hero;
-import service.ChoiceItem.ChoiceComputer;
-import service.ChoiceItem.ChoiceUser;
+import service.choiceitem.ChoiceComputer;
+import service.choiceitem.ChoiceUser;
+import service.file.FileService;
 import service.file.TextFileService;
 import service.io.ConsoleMassageService;
 import service.parser.JsonParserService;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Меню выбора героя.
+ */
 public class SelectHeroMenu extends MenuEntry {
 
     private final List<MenuEntry> menu = new ArrayList<>();
@@ -25,7 +29,8 @@ public class SelectHeroMenu extends MenuEntry {
         super.printTitle("Выберите персонажа:");
         List<Hero> listHero = new ArrayList<>();
         try {
-            listHero = new JsonParserService().getAllHeroFromString(new TextFileService().readTextFromFile("hero.json"));
+            listHero = new JsonParserService().getAllHeroFromString(
+                    new TextFileService().readTextFromFile(FileService.readDirectory, "hero.json"));
             for (Hero hero : listHero) {
                 super.printTitle(serialNumber + ". " + hero.getName());
                 serialNumber++;
@@ -38,19 +43,17 @@ public class SelectHeroMenu extends MenuEntry {
         addPoint(new ExitMenu(serialNumber + ". " + "Выход"));
 
         super.printMenu(menu);
-        //super.selectItemMenu(menu);
         selectOrJumpMenu(listHero);
 
-        //super.selectItemMenuWithSelectHero(menu, listHero);
     }
 
-    private void selectOrJumpMenu(List<Hero> listHero){
+    private void selectOrJumpMenu(List<Hero> listHero) {
         try {
-            int _selectedNumberUser = super.selectedNumberUser();
-            if (_selectedNumberUser < listHero.size()) {
-                selectHero(listHero, _selectedNumberUser);
+            int selectedNumberUser = super.selectedNumberUser();
+            if (selectedNumberUser < listHero.size()) {
+                selectHero(listHero, selectedNumberUser);
             } else {
-                super.selectItemMenu(menu, _selectedNumberUser - listHero.size());
+                super.selectItemMenu(menu, selectedNumberUser - listHero.size());
             }
         } catch (IndexOutOfBoundsException e) {
             ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
@@ -65,7 +68,7 @@ public class SelectHeroMenu extends MenuEntry {
 
     private void selectHero(List<Hero> listHero, int indexSelected) {
         try {
-            new ChoiceUser().SelectedHero(listHero.get(indexSelected));
+            new ChoiceUser().selectedHero(listHero.get(indexSelected));
             doChoiceHeroComputer(listHero);
             new SelectArtefactMenu().run();
         } catch (IOException mes) {
@@ -74,11 +77,12 @@ public class SelectHeroMenu extends MenuEntry {
         }
     }
 
-    private void doChoiceHeroComputer(List<Hero> listHero){
-        listHero.remove(ChoiceUser.getHeroGamer());
+    private void doChoiceHeroComputer(List<Hero> listHero) {
+        listHero.remove(ChoiceUser.getHero());
         ChoiceComputer choiceComputer = new ChoiceComputer();
         try {
-            choiceComputer.SelectedHero(choiceComputer.getRandomHeroFromListWithoutUserHero(listHero));
+            choiceComputer.selectedHero(
+                    choiceComputer.getRandomHeroFromListWithoutUserHero(listHero));
         } catch (IOException mes) {
             ConsoleMassageService.getInstance().print(mes.getMessage());
         }
