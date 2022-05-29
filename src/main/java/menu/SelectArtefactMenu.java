@@ -29,7 +29,7 @@ public class SelectArtefactMenu extends MenuEntry {
             listSimpleItem = new JsonParserService().getAllSimpleItemFromString(
                     new TextFileService().readTextFromFile(FileService.readDirectory, "item.json"));
             for (SimpleItem simpleItem : listSimpleItem) {
-                super.printTitle(serialNumber + ". " + simpleItem.getName());
+                super.printTitle(serialNumber + ". " + simpleItem.getType());
                 serialNumber++;
             }
         } catch (IOException mes) {

@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class Hero {
 
-    private String name;
+    private String type;
     private float hp;
     private float skillAttack;
     private float skillDefense;
@@ -15,12 +15,12 @@ public class Hero {
     /**
      * Создание героя.
      *
-     * @param name         - название героя
+     * @param type         - название героя
      * @param skillAttack  - скилл атаки героя
      * @param skillDefense - скилл защиты героя
      */
-    public Hero(String name, float skillAttack, float skillDefense) {
-        this.name = name;
+    public Hero(String type, float skillAttack, float skillDefense) {
+        this.type = type;
         this.hp = 100;
         this.skillDefense = skillDefense;
         this.skillAttack = skillAttack;
@@ -29,13 +29,13 @@ public class Hero {
     /**
      * Создание героя.
      *
-     * @param name         - название героя
+     * @param type         - название героя
      * @param hp           - здоровье героя
      * @param skillAttack  - скилл атаки героя
      * @param skillDefense - скилл защиты героя
      */
-    public Hero(String name, float hp, float skillAttack, float skillDefense) {
-        this.name = name;
+    public Hero(String type, float hp, float skillAttack, float skillDefense) {
+        this.type = type;
         this.hp = hp;
         this.skillDefense = skillDefense;
         this.skillAttack = skillAttack;
@@ -65,18 +65,18 @@ public class Hero {
         this.skillDefense = skillDefense;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return "Герой: "
-                + "Имя = '" + name + '\''
+                + "Персонаж = '" + type + '\''
                 + ", Жизни = " + hp
                 + ", Навык атаки = " + skillAttack
                 + ", Навык защиты = " + skillDefense
@@ -95,11 +95,11 @@ public class Hero {
         return Float.compare(hero.hp, hp) == 0
                 && Float.compare(hero.skillAttack, skillAttack) == 0
                 && Float.compare(hero.skillDefense, skillDefense) == 0
-                && Objects.equals(name, hero.name);
+                && Objects.equals(type, hero.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, hp, skillAttack, skillDefense);
+        return Objects.hash(type, hp, skillAttack, skillDefense);
     }
 }

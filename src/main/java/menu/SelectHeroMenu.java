@@ -32,7 +32,7 @@ public class SelectHeroMenu extends MenuEntry {
             listHero = new JsonParserService().getAllHeroFromString(
                     new TextFileService().readTextFromFile(FileService.readDirectory, "hero.json"));
             for (Hero hero : listHero) {
-                super.printTitle(serialNumber + ". " + hero.getName());
+                super.printTitle(serialNumber + ". " + hero.getType());
                 serialNumber++;
             }
         } catch (IOException mes) {

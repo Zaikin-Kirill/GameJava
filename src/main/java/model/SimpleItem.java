@@ -13,12 +13,12 @@ public class SimpleItem extends Item {
     /**
      * Создание артефакта.
      *
-     * @param name    - название артефакта
-     * @param damage  - урон артефакта
-     * @param defense - защита артефакта
+     * @param type     название артефакта
+     * @param damage   урон артефакта
+     * @param defense  защита артефакта
      */
-    public SimpleItem(String name, float damage, float defense) {
-        super(name);
+    public SimpleItem(String type, float damage, float defense) {
+        super(type);
         this.damage = damage;
         this.defense = defense;
     }
@@ -42,7 +42,7 @@ public class SimpleItem extends Item {
     @Override
     public String toString() {
         return "Артефакт: "
-                + "Название = " + super.getName()
+                + "Название = " + super.getType()
                 + ", Урон = " + damage
                 + ", Защита = " + defense
                 + ';';

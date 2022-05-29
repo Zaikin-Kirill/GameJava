@@ -28,4 +28,7 @@ public interface FileService {
      */
     void writeTextToFile(String path, String fileName, String text) throws IOException;
 
+    void deleteAllFilesFolder(String path);
+
+    boolean checkExistFile(String path);
 }

@@ -36,7 +36,7 @@ public abstract class ChoiceService {
      * Формирование списка артефактов, вызов парсинга в json
      * и записи в файл.
      *
-     * @param artefact     - новый артефакт
+     * @param artefact     - новый артефакт {@link Item}
      * @param listArtefact - список уже выбранных артефактов
      * @param fileName     - имя файла для сохранения артефактов
      * @return - новый список артефактов

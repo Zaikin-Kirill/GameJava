@@ -7,26 +7,26 @@ import java.util.Objects;
  */
 public abstract class Item {
 
-    private String name;
+    private String type;
 
 
-    public Item(String name) {
-        this.name = name;
+    public Item(String type) {
+        this.type = type;
     }
 
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return "Артефакт: "
-                + "Название = '" + name + '\''
+                + "Название = '" + type + '\''
                 + '}';
     }
 
@@ -39,11 +39,11 @@ public abstract class Item {
             return false;
         }
         Item item = (Item) o;
-        return Objects.equals(name, item.name);
+        return Objects.equals(type, item.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(type);
     }
 }

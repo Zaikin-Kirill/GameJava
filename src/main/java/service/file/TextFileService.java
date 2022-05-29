@@ -1,10 +1,10 @@
 package service.file;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 /**
  * Класс работы с текстовыми файлами.
@@ -29,5 +29,20 @@ public class TextFileService implements FileService {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path + fileName))) {
             writer.write(text);
         }
+    }
+
+    @Override
+    public void deleteAllFilesFolder(String path) {
+        for (File myFile : Objects.requireNonNull(new File(path).listFiles())){
+            if (myFile.isFile()) {
+                boolean result = myFile.delete();
+            }
+        }
+    }
+
+    @Override
+    public boolean checkExistFile(String path){
+        Path pathFile = Paths.get(path);
+        return Files.exists(pathFile) && !Files.isDirectory(pathFile);
     }
 }

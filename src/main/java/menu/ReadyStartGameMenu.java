@@ -20,7 +20,7 @@ public class ReadyStartGameMenu extends MenuEntry {
 
     @Override
     public void run() {
-        addPoint(new StartGameMenu("1. Да"));
+        addPoint(new StepSelectArtefactMenu("1. Да"));
         addPoint(new SelectHeroMenu("2. Вернуться в выбор персонажа"));
         addPoint(new ExitMenu("3. Выход"));
 
@@ -38,7 +38,7 @@ public class ReadyStartGameMenu extends MenuEntry {
         ConsoleMassageService.getInstance()
                 .print("Герой компьютера:", ConsoleMassageService.Color.PURPLE);
         ConsoleMassageService.getInstance()
-                .print(ChoiceUser.getHero().toString(), ConsoleMassageService.Color.PURPLE);
+                .print(ChoiceComputer.getHero().toString(), ConsoleMassageService.Color.PURPLE);
         ConsoleMassageService.getInstance()
                 .print("Артефакты компьютера: ", ConsoleMassageService.Color.PURPLE);
         for (Item item : ChoiceComputer.getItems()) {
