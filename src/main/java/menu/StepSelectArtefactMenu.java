@@ -1,5 +1,6 @@
 package menu;
 
+import model.Hero;
 import model.Item;
 import model.SimpleItem;
 import service.choiceitem.ChoiceComputer;

@@ -12,7 +12,9 @@ public interface ParserService {
 
     List<Hero> getAllHeroFromString(String string);
 
-    List<SimpleItem> getAllSimpleItemFromString(String string);
+    Hero getHeroFromString(String string);
+
+    List<Item> getAllSimpleItemFromString(String string);
 
     String parseHeroToString(Hero hero);
 

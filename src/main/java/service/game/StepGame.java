@@ -31,7 +31,7 @@ public class StepGame {
     }
 
     private static Hero heroGamer;
-    private static Item itemGamer;
+    private static Item itemsGamer;
     private static Action actionGamer;
 
     private static Hero heroComputer;
@@ -54,8 +54,16 @@ public class StepGame {
         StepGame.heroComputer = heroComputer;
     }
 
+    public static void setItemsGamer(Item itemsGamer) {
+        StepGame.itemsGamer = itemsGamer;
+    }
+
+    public static void setItemsComputer(Item itemsComputer) {
+        StepGame.itemsComputer = itemsComputer;
+    }
+
     public static void selectItemGamer(int indexSelected) {
-        itemGamer = ChoiceUser.getItems().get(indexSelected);
+        itemsGamer = ChoiceUser.getItems().get(indexSelected);
     }
 
     public static void selectItemComputer() {
@@ -73,7 +81,7 @@ public class StepGame {
     public static void printStepSelectGamer() {
         ConsoleMassageService.getInstance().print(
                 "Вы выбрали: "
-                        + itemGamer.toString() + ". Действие: "
+                        + itemsGamer.toString() + ". Действие: "
                         + actionGamer.getName(), ConsoleMassageService.Color.GREEN);
     }
 
@@ -92,9 +100,9 @@ public class StepGame {
 
     private static void saveStepResult() {
         try {
-            new TextFileService().writeTextToFile(FileService.saveDirectory, "heroGamer.json",
+            new TextFileService().writeTextToFile(FileService.saveDirectory, FileService.saveHeroGamerFile,
                     new JsonParserService().parseHeroToString(heroGamer));
-            new TextFileService().writeTextToFile(FileService.saveDirectory, "heroComputer.json",
+            new TextFileService().writeTextToFile(FileService.saveDirectory, FileService.saveHeroComputerFile,
                     new JsonParserService().parseHeroToString(heroComputer));
         } catch (IOException e) {
             ConsoleMassageService.getInstance().print(e.getMessage());
@@ -105,9 +113,9 @@ public class StepGame {
         switch (actionGamer) {
             case ATTACK -> {
                 float attackGamer = 0;
-                if (itemGamer instanceof SimpleItem) {
+                if (itemsGamer instanceof SimpleItem) {
                     float randomAttackGamer = getRandom0to1();
-                    attackGamer = heroGamer.getSkillAttack() * ((SimpleItem) itemGamer).getDamage() * randomAttackGamer;
+                    attackGamer = heroGamer.getSkillAttack() * ((SimpleItem) itemsGamer).getDamage() * randomAttackGamer;
                 }
                 switch (actionComputer) {
                     case ATTACK -> {
@@ -118,7 +126,9 @@ public class StepGame {
                                     * randomAttackComp;
                         }
                         heroComputer.setHp(heroComputer.getHp() - attackGamer);
+                        if (heroComputer.getHp() < 0) heroComputer.setHp(0);
                         heroGamer.setHp(heroGamer.getHp() - attackComputer);
+                        if (heroGamer.getHp() < 0) heroGamer.setHp(0);
                     }
                     case DEFENSE -> {
                         float defenseComputer = 0;
@@ -129,15 +139,16 @@ public class StepGame {
                         }
                         if (attackGamer > defenseComputer) {
                             heroComputer.setHp(heroComputer.getHp() - (attackGamer - defenseComputer));
+                            if (heroComputer.getHp() < 0) heroComputer.setHp(0);
                         }
                     }
                 }
             }
             case DEFENSE -> {
                 float defenseGamer = 0;
-                if (itemGamer instanceof SimpleItem) {
+                if (itemsGamer instanceof SimpleItem) {
                     float randomDefenseGamer = getRandom0to1();
-                    defenseGamer = heroGamer.getSkillDefense() * ((SimpleItem) itemGamer).getDefense()
+                    defenseGamer = heroGamer.getSkillDefense() * ((SimpleItem) itemsGamer).getDefense()
                             * randomDefenseGamer;
                 }
                 switch (actionComputer) {
@@ -150,6 +161,7 @@ public class StepGame {
                         }
                         if (attackComputer > defenseGamer) {
                             heroGamer.setHp(heroGamer.getHp() - (attackComputer - defenseGamer));
+                            if (heroGamer.getHp() < 0) heroGamer.setHp(0);
                         }
                         break;
                     case DEFENSE:

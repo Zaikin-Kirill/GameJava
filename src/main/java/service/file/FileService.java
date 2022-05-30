@@ -9,6 +9,10 @@ public interface FileService {
 
     String readDirectory = "src/main/resources/";
     String saveDirectory = "src/main/resources/savegame/";
+    String saveHeroGamerFile = "heroGamer.json";
+    String saveHeroComputerFile = "heroComputer.json";
+    String saveItemGamerFile = "itemGamer.json";
+    String saveItemComputerFile = "itemComputer.json";
 
     /**
      * Чтение из файла.
@@ -30,5 +34,5 @@ public interface FileService {
 
     void deleteAllFilesFolder(String path);
 
-    boolean checkExistFile(String path);
+    boolean checkSaveFile();
 }

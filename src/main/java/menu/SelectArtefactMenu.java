@@ -3,6 +3,8 @@ package menu;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Item;
 import model.SimpleItem;
 import service.choiceitem.ChoiceComputer;
 import service.choiceitem.ChoiceUser;
@@ -23,12 +25,12 @@ public class SelectArtefactMenu extends MenuEntry {
     @Override
     public void run() {
         super.printTitle("Выберите оружие или защиту:");
-        List<SimpleItem> listSimpleItem = new ArrayList<>() {
+        List<Item> listSimpleItem = new ArrayList<>() {
         };
         try {
             listSimpleItem = new JsonParserService().getAllSimpleItemFromString(
                     new TextFileService().readTextFromFile(FileService.readDirectory, "item.json"));
-            for (SimpleItem simpleItem : listSimpleItem) {
+            for (Item simpleItem : listSimpleItem) {
                 super.printTitle(serialNumber + ". " + simpleItem.getType());
                 serialNumber++;
             }
@@ -43,7 +45,7 @@ public class SelectArtefactMenu extends MenuEntry {
         selectOrJumpMenu(listSimpleItem);
     }
 
-    private void selectOrJumpMenu(List<SimpleItem> listSimpleItem) {
+    private void selectOrJumpMenu(List<Item> listSimpleItem) {
         try {
             int selectedNumberUser = super.selectedNumberUser();
             if (selectedNumberUser < listSimpleItem.size()) {
@@ -57,7 +59,7 @@ public class SelectArtefactMenu extends MenuEntry {
         }
     }
 
-    private void selectSimpleItem(List<SimpleItem> listSimpleItem, int indexSelected) {
+    private void selectSimpleItem(List<Item> listSimpleItem, int indexSelected) {
         try {
             new ChoiceUser().selectedItem(listSimpleItem.get(indexSelected));
             if (ChoiceUser.getItems().size() != ChoiceUser.getCountItems()) {
@@ -75,7 +77,7 @@ public class SelectArtefactMenu extends MenuEntry {
 
     }
 
-    private void doChoiceItemsComputer(List<SimpleItem> listSimpleItem) {
+    private void doChoiceItemsComputer(List<Item> listSimpleItem) {
         listSimpleItem.removeAll(ChoiceUser.getItems());
         ChoiceComputer choiceComputer = new ChoiceComputer();
         try {

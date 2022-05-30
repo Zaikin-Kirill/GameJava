@@ -41,8 +41,17 @@ public class TextFileService implements FileService {
     }
 
     @Override
-    public boolean checkExistFile(String path){
-        Path pathFile = Paths.get(path);
-        return Files.exists(pathFile) && !Files.isDirectory(pathFile);
+    public boolean checkSaveFile(){
+        String[] paths = new String[]{FileService.saveDirectory + FileService.saveHeroGamerFile,
+                FileService.saveDirectory + FileService.saveHeroComputerFile,
+                FileService.saveDirectory + FileService.saveItemGamerFile,
+                FileService.saveDirectory + FileService.saveItemComputerFile};
+        for (String path: paths) {
+            Path pathFile = Paths.get(path);
+            if (!Files.exists(pathFile)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

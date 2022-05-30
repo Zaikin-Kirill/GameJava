@@ -1,25 +1,25 @@
 [
   {
     "type": "Гном",
-    "hp": 1.0,
+    "hp": 10.0,
     "skillAttack": 0.6,
     "skillDefense": 0.4
   },
   {
     "type": "Тролль",
-    "hp": 1.0,
+    "hp": 10.0,
     "skillAttack": 0.5,
     "skillDefense": 0.8
   },
   {
     "type": "Голем",
-    "hp": 1.0,
+    "hp": 10.0,
     "skillAttack": 0.4,
     "skillDefense": 0.9
   },
   {
     "type": "Колдун",
-    "hp": 1.0,
+    "hp": 10.0,
     "skillAttack": 0.9,
     "skillDefense": 0.3
   }

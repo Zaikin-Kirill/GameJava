@@ -3,9 +3,11 @@ package service.choiceitem;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+
 import model.Hero;
 import model.Item;
 import model.SimpleItem;
+import service.file.FileService;
 import service.io.ConsoleMassageService;
 
 /**
@@ -14,6 +16,7 @@ import service.io.ConsoleMassageService;
 public class ChoiceComputer extends ChoiceService {
 
     private static Hero heroComputer;
+
     private static List<Item> itemsComputer;
 
     public static Hero getHero() {
@@ -24,13 +27,21 @@ public class ChoiceComputer extends ChoiceService {
         return itemsComputer;
     }
 
+    public static void setHeroComputer(Hero heroComputer) {
+        ChoiceComputer.heroComputer = heroComputer;
+    }
+
+    public static void setItemsComputer(List<Item> itemsComputer) {
+        ChoiceComputer.itemsComputer = itemsComputer;
+    }
+
     /**
      * Вызов сохранения в файл и вывод на экран выбранного героя компьютера.
      *
      * @param hero - герой компьютера
      */
     public void selectedHero(Hero hero) throws IOException {
-        super.saveSelectedHero(hero, "heroComputer.json");
+        super.saveSelectedHero(hero, FileService.saveHeroComputerFile);
         heroComputer = hero;
         ConsoleMassageService.getInstance()
                 .print("Компьютер выбрал героя:", ConsoleMassageService.Color.PURPLE);
@@ -46,7 +57,7 @@ public class ChoiceComputer extends ChoiceService {
      * @param artefact - артекфакт компьютера
      */
     public void selectedItem(Item artefact) throws IOException {
-        itemsComputer = super.saveSelectedItem(artefact, itemsComputer, "itemComputer.json");
+        itemsComputer = super.saveSelectedItem(artefact, itemsComputer, FileService.saveItemComputerFile);
         int currentNumber = itemsComputer.lastIndexOf(artefact) + 1;
         ConsoleMassageService.getInstance().print(
                 "Компьютер выбрал артефакт № " + currentNumber
@@ -59,7 +70,7 @@ public class ChoiceComputer extends ChoiceService {
         return listAccessibleHero.get(new Random().nextInt(listAccessibleHero.size()));
     }
 
-    public SimpleItem getRandomItemFromListWithoutUserItems(List<SimpleItem> listAccessibleItem) {
+    public Item getRandomItemFromListWithoutUserItems(List<Item> listAccessibleItem) {
         return listAccessibleItem.get(new Random().nextInt(listAccessibleItem.size()));
     }
 }

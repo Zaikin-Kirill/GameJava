@@ -33,7 +33,7 @@ public class JsonParserServiceTest {
         assertTrue.add(new SimpleItem("Тесак", 3, 1));
         assertTrue.add(new SimpleItem("Посох", 1, 1.4f));
         JsonParserService _jsonParserService = new JsonParserService();
-        List<SimpleItem> result = _jsonParserService.getAllSimpleItemFromString(str);
+        List<Item> result = _jsonParserService.getAllSimpleItemFromString(str);
         Assertions.assertEquals(assertTrue, result);
     }
 

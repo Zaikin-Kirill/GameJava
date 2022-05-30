@@ -2,14 +2,14 @@ package service.parser;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
 import model.Hero;
 import model.Item;
 import model.SimpleItem;
-
-
 
 
 /**
@@ -24,7 +24,12 @@ public class JsonParserService implements ParserService {
     }
 
     @Override
-    public List<SimpleItem> getAllSimpleItemFromString(String string) {
+    public Hero getHeroFromString(String string) {
+        return new Gson().fromJson(string, Hero.class);
+    }
+
+    @Override
+    public List<Item> getAllSimpleItemFromString(String string) {
         Type simpleItemListType = new TypeToken<ArrayList<SimpleItem>>() {
         }.getType();
         return new Gson().fromJson(string, simpleItemListType);
