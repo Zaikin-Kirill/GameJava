@@ -2,7 +2,6 @@ package service.choiceitem;
 
 import java.io.IOException;
 import java.util.List;
-
 import model.Hero;
 import model.Item;
 import service.file.FileService;
@@ -16,6 +15,11 @@ public class ChoiceUser extends ChoiceService {
 
     private static Hero heroGamer;
     private static List<Item> itemsGamer;
+
+    /**
+     * Сервис вывода на экран.
+     */
+    private static final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
 
     public static Hero getHero() {
         return heroGamer;
@@ -41,10 +45,8 @@ public class ChoiceUser extends ChoiceService {
     public void selectedHero(Hero hero) throws IOException {
         super.saveSelectedHero(hero, FileService.saveHeroGamerFile);
         heroGamer = hero;
-        ConsoleMassageService.getInstance()
-                .print("Вы выбрали героя:", ConsoleMassageService.Color.GREEN);
-        ConsoleMassageService.getInstance()
-                .print(hero.toString(), ConsoleMassageService.Color.GREEN);
+        consoleMassageService.print("Вы выбрали героя:", ConsoleMassageService.Color.GREEN);
+        consoleMassageService.print(hero.toString(), ConsoleMassageService.Color.GREEN);
 
     }
 
@@ -57,11 +59,9 @@ public class ChoiceUser extends ChoiceService {
     public void selectedItem(Item artefact) throws IOException {
         itemsGamer = super.saveSelectedItem(artefact, itemsGamer, FileService.saveItemGamerFile);
         int currentNumber = itemsGamer.lastIndexOf(artefact) + 1;
-        ConsoleMassageService.getInstance()
-                .print("Вы выбрали артефакт № " + currentNumber
+        consoleMassageService.print("Вы выбрали артефакт № " + currentNumber
                         + ":", ConsoleMassageService.Color.GREEN);
-        ConsoleMassageService.getInstance()
-                .print(artefact.toString(), ConsoleMassageService.Color.GREEN);
+        consoleMassageService.print(artefact.toString(), ConsoleMassageService.Color.GREEN);
     }
 
 }

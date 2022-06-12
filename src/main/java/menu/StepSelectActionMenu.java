@@ -1,27 +1,34 @@
 package menu;
 
-import service.choiceitem.ChoiceUser;
+import java.util.ArrayList;
+import java.util.List;
 import service.file.FileService;
 import service.file.TextFileService;
+import service.game.Action;
+import service.game.StateStepGame;
 import service.game.StepGame;
 import service.io.ConsoleMassageService;
 
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Меню выбора действия на шаге игры.
+ */
 public class StepSelectActionMenu extends MenuEntry {
 
     private final List<MenuEntry> menu = new ArrayList<>();
-    private final List<Integer> actionList = new ArrayList<>();
     private int serialNumber = 1;
+
+    /**
+     * Сервис вывода на экран.
+     */
+    private final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
 
     @Override
     public void run() {
 
         super.printTitle("Выберите действие:");
-        for (StepGame.Action action : StepGame.Action.values()) {
-            ConsoleMassageService.getInstance()
-                    .print(serialNumber + ". " + action.getName());
+        for (Action action : Action.values()) {
+            consoleMassageService.print(serialNumber + ". " + action.getName());
             serialNumber++;
         }
 
@@ -35,33 +42,33 @@ public class StepSelectActionMenu extends MenuEntry {
     private void selectOrJumpMenu() {
         try {
             int selectedNumberUser = super.selectedNumberUser();
-            if (selectedNumberUser < StepGame.Action.values().length) {
-                StepGame.selectActionGamer(selectedNumberUser);
-                StepGame.selectActionComputer();
-                StepGame.printStepSelectGamer();
-                StepGame.printStepSelectComputer();
-                StepGame.fight();
-                StepGame.printStepResult();
-                if (StepGame.getHeroGamer().getHp() <= 0) {
-                    ConsoleMassageService.getInstance().print(
+            if (selectedNumberUser < Action.values().length) {
+                StateStepGame stateStepGame = StateStepGame.getInstance();
+                stateStepGame.selectActionGamer(selectedNumberUser);
+                stateStepGame.selectActionComputer();
+                StepGame stepGame = new StepGame();
+                stepGame.printStepSelectGamer();
+                stepGame.printStepSelectComputer();
+                stepGame.fight();
+                stepGame.printStepResult();
+                if (stateStepGame.getHeroGamer().getHp() <= 0) {
+                    consoleMassageService.print(
                             "Вы убиты в битве! Игра окончена!", ConsoleMassageService.Color.RED);
                     new TextFileService().deleteAllFilesFolder(FileService.saveDirectory);
                     new MainMenu().run();
-                } else if (StepGame.getHeroComputer().getHp() <= 0) {
-                    ConsoleMassageService.getInstance().print(
+                } else if (stateStepGame.getHeroComputer().getHp() <= 0) {
+                    consoleMassageService.print(
                             "Компьютер убит в битве! Вы победили!", ConsoleMassageService.Color.GREEN);
                     new TextFileService().deleteAllFilesFolder(FileService.saveDirectory);
                     new MainMenu().run();
                 } else {
                     new StepSelectArtefactMenu().run();
                 }
-
-                //new StepSelectActionMenu().run();
             } else {
-                super.selectItemMenu(menu, selectedNumberUser - StepGame.Action.values().length);
+                super.selectItemMenu(menu, selectedNumberUser - Action.values().length);
             }
         } catch (IndexOutOfBoundsException e) {
-            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
+            consoleMassageService.print("Введите число из диапазона меню");
             selectOrJumpMenu();
         }
     }

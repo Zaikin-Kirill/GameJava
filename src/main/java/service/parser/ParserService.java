@@ -3,7 +3,6 @@ package service.parser;
 import java.util.List;
 import model.Hero;
 import model.Item;
-import model.SimpleItem;
 
 /**
  * Интерфейс парсинга.

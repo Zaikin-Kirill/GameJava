@@ -2,61 +2,73 @@
   {
     "damage": 3.5,
     "defense": 1.5,
-    "type": "Топор"
+    "type": "Топор",
+    "category" : "SIMPLE"
   },
   {
     "damage": 2.5,
     "defense": 0.2,
-    "type": "Лук"
+    "type": "Лук",
+    "category" : "SIMPLE"
   },
   {
     "damage": 4.0,
     "defense": 1.1,
-    "type": "Меч"
+    "type": "Меч",
+    "category" : "SIMPLE"
   },
   {
     "damage": 3.0,
     "defense": 0.8,
-    "type": "Дубина"
+    "type": "Дубина",
+    "category" : "SIMPLE"
   },
   {
     "damage": 3.0,
     "defense": 1.0,
-    "type": "Тесак"
+    "type": "Тесак",
+    "category" : "SIMPLE"
   },
   {
     "damage": 1.0,
     "defense": 1.4,
-    "type": "Посох"
+    "type": "Посох",
+    "category" : "SIMPLE"
   },
   {
     "damage": 0.5,
     "defense": 2.0,
-    "type": "Шлем"
+    "type": "Шлем",
+    "category" : "SIMPLE"
   },
   {
     "damage": 0.8,
     "defense": 3.0,
-    "type": "Щит"
+    "type": "Щит",
+    "category" : "SIMPLE"
   },
   {
     "damage": 0.1,
     "defense": 2.0,
-    "type": "Амулет"
+    "type": "Амулет",
+    "category" : "SIMPLE"
   },
   {
     "damage": 0.2,
     "defense": 2.5,
-    "type": "Шапка"
+    "type": "Шапка",
+    "category" : "SIMPLE"
   },
   {
     "damage": 0.3,
     "defense": 2.8,
-    "type": "Накидка"
+    "type": "Накидка",
+    "category" : "SIMPLE"
   },
   {
     "damage": 1.0,
     "defense": 5.0,
-    "type": "Доспехи"
+    "type": "Доспехи",
+    "category" : "SIMPLE"
   }
 ]

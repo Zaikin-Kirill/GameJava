@@ -14,9 +14,9 @@ import service.parser.JsonParserService;
  */
 public abstract class ChoiceService {
 
-    private static final byte countItems = 2;
+    private final byte countItems = 2;
 
-    public static byte getCountItems() {
+    public byte getCountItems() {
         return countItems;
     }
 

@@ -9,11 +9,15 @@ public abstract class Item {
 
     private String type;
 
+    public ItemCategory getCategory() {
+        return category;
+    }
+
+    protected ItemCategory category;
 
     public Item(String type) {
         this.type = type;
     }
-
 
     public String getType() {
         return type;

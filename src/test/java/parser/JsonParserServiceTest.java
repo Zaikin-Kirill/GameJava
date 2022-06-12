@@ -17,7 +17,7 @@ public class JsonParserServiceTest {
 
     @Test
     public void getAllHeroFromStringTest() {
-        String str = "[{\"name\":\"Голем\",\"hp\":100.0,\"skillAttack\":0.1,\"skillDefense\":0.8}, {\"name\":\"Колдун\",\"hp\":100.0,\"skillAttack\":0.5,\"skillDefense\":0.6}]";
+        String str = "[{\"type\":\"Голем\",\"hp\":100.0,\"skillAttack\":0.1,\"skillDefense\":0.8}, {\"type\":\"Колдун\",\"hp\":100.0,\"skillAttack\":0.5,\"skillDefense\":0.6}]";
         List<Hero> assertTrue = new ArrayList<>();
         assertTrue.add(new Hero("Голем", 100, 0.1f, 0.8f));
         assertTrue.add(new Hero("Колдун", 100, 0.5f, 0.6f));
@@ -28,7 +28,7 @@ public class JsonParserServiceTest {
 
     @Test
     public void getAllSimpleItemFromStringTest() {
-        String str = "[{\"damage\":3.0,\"defense\":1.0,\"name\":\"Тесак\"},{\"damage\":1.0,\"defense\":1.4,\"name\":\"Посох\"}]";
+        String str = "[{\"damage\":3.0,\"defense\":1.0,\"type\":\"Тесак\"},{\"damage\":1.0,\"defense\":1.4,\"type\":\"Посох\"}]";
         List<Item> assertTrue = new ArrayList<>();
         assertTrue.add(new SimpleItem("Тесак", 3, 1));
         assertTrue.add(new SimpleItem("Посох", 1, 1.4f));
@@ -39,7 +39,7 @@ public class JsonParserServiceTest {
 
     @Test
     public void parseHeroToStringTest() {
-        String assertTrue = "{\"name\":\"Голем\",\"hp\":100.0,\"skillAttack\":0.1,\"skillDefense\":0.8}";
+        String assertTrue = "{\"type\":\"Голем\",\"hp\":100.0,\"skillAttack\":0.1,\"skillDefense\":0.8}";
         Hero hero = new Hero("Голем", 100, 0.1f, 0.8f);
         JsonParserService _jsonParserService = new JsonParserService();
         String result = _jsonParserService.parseHeroToString(hero);
@@ -48,7 +48,7 @@ public class JsonParserServiceTest {
 
     @Test
     public void parseItemToStringTest() {
-        String assertTrue = "{\"damage\":3.0,\"defense\":1.0,\"name\":\"Тесак\"}";
+        String assertTrue = "{\"damage\":3.0,\"defense\":1.0,\"type\":\"Тесак\",\"category\":\"SIMPLE\"}";
         Item item = new SimpleItem("Тесак", 3, 1);
         JsonParserService _jsonParserService = new JsonParserService();
         String result = _jsonParserService.parseItemToString(item);
@@ -57,7 +57,7 @@ public class JsonParserServiceTest {
 
     @Test
     public void parseListItemsToString() {
-        String assertTrue = "[{\"damage\":3.0,\"defense\":1.0,\"name\":\"Тесак\"},{\"damage\":1.0,\"defense\":1.4,\"name\":\"Посох\"}]";
+        String assertTrue = "[{\"damage\":3.0,\"defense\":1.0,\"type\":\"Тесак\",\"category\":\"SIMPLE\"},{\"damage\":1.0,\"defense\":1.4,\"type\":\"Посох\",\"category\":\"SIMPLE\"}]";
         List<Item> items = new ArrayList<>();
         items.add(new SimpleItem("Тесак", 3, 1));
         items.add(new SimpleItem("Посох", 1, 1.4f));

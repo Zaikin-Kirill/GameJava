@@ -3,9 +3,7 @@ package menu;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Item;
-import model.SimpleItem;
 import service.choiceitem.ChoiceComputer;
 import service.choiceitem.ChoiceUser;
 import service.file.FileService;
@@ -21,6 +19,11 @@ public class SelectArtefactMenu extends MenuEntry {
 
     private final List<MenuEntry> menu = new ArrayList<>();
     private int serialNumber = 1;
+
+    /**
+     * Сервис вывода на экран.
+     */
+    private ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
 
     @Override
     public void run() {
@@ -54,24 +57,25 @@ public class SelectArtefactMenu extends MenuEntry {
                 super.selectItemMenu(menu, selectedNumberUser - listSimpleItem.size());
             }
         } catch (IndexOutOfBoundsException e) {
-            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
+            consoleMassageService.print("Введите число из диапазона меню");
             selectOrJumpMenu(listSimpleItem);
         }
     }
 
     private void selectSimpleItem(List<Item> listSimpleItem, int indexSelected) {
         try {
-            new ChoiceUser().selectedItem(listSimpleItem.get(indexSelected));
-            if (ChoiceUser.getItems().size() != ChoiceUser.getCountItems()) {
+            ChoiceUser choiceUser = new ChoiceUser();
+            choiceUser.selectedItem(listSimpleItem.get(indexSelected));
+            if (ChoiceUser.getItems().size() != choiceUser.getCountItems()) {
                 new SelectArtefactMenu().run();
             } else {
                 do {
                     doChoiceItemsComputer(listSimpleItem);
-                } while (ChoiceComputer.getItems().size() != ChoiceComputer.getCountItems());
+                } while (ChoiceComputer.getItems().size() != new ChoiceComputer().getCountItems());
                 new ReadyStartGameMenu().run();
             }
         } catch (IOException mes) {
-            ConsoleMassageService.getInstance().print(mes.getMessage());
+            consoleMassageService.print(mes.getMessage());
             selectOrJumpMenu(listSimpleItem);
         }
 
@@ -84,7 +88,7 @@ public class SelectArtefactMenu extends MenuEntry {
             choiceComputer.selectedItem(
                     choiceComputer.getRandomItemFromListWithoutUserItems(listSimpleItem));
         } catch (IOException mes) {
-            ConsoleMassageService.getInstance().print(mes.getMessage());
+            consoleMassageService.print(mes.getMessage());
         }
     }
 

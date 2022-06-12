@@ -1,6 +1,11 @@
 package service.file;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,20 +38,20 @@ public class TextFileService implements FileService {
 
     @Override
     public void deleteAllFilesFolder(String path) {
-        for (File myFile : Objects.requireNonNull(new File(path).listFiles())){
+        for (File myFile : Objects.requireNonNull(new File(path).listFiles())) {
             if (myFile.isFile()) {
-                boolean result = myFile.delete();
+                myFile.delete();
             }
         }
     }
 
     @Override
-    public boolean checkSaveFile(){
+    public boolean checkSaveFile() {
         String[] paths = new String[]{FileService.saveDirectory + FileService.saveHeroGamerFile,
                 FileService.saveDirectory + FileService.saveHeroComputerFile,
                 FileService.saveDirectory + FileService.saveItemGamerFile,
                 FileService.saveDirectory + FileService.saveItemComputerFile};
-        for (String path: paths) {
+        for (String path : paths) {
             Path pathFile = Paths.get(path);
             if (!Files.exists(pathFile)) {
                 return false;

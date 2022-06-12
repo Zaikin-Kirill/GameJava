@@ -1,15 +1,8 @@
 package menu;
 
-import model.Hero;
-import service.file.FileService;
-import service.file.TextFileService;
-import service.game.LoadGame;
-import service.game.StepGame;
-import service.parser.JsonParserService;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import service.file.TextFileService;
 
 /**
  * Класс главного меню программы.
@@ -29,11 +22,10 @@ public class MainMenu extends MenuEntry {
     @Override
     public void run() {
 
-        addPoint(new RuleMenu( serialNumber + ". Правила игры"));
+        addPoint(new RuleMenu(serialNumber + ". Правила игры"));
 
         if (new TextFileService().checkSaveFile()) {
-            LoadGame.loadSaveGame();
-            addPoint(new StepSelectArtefactMenu( serialNumber + ". Продолжить игру"));
+            addPoint(new StepSelectArtefactMenu(serialNumber + ". Продолжить игру", true));
         }
 
         addPoint(new SelectHeroMenu(serialNumber + ". Начать новую игру"));

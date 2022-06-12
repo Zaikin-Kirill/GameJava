@@ -1,179 +1,145 @@
 package service.game;
 
+import java.io.IOException;
+import java.util.Random;
 import model.Hero;
-import model.Item;
+import model.ItemCategory;
 import model.SimpleItem;
-import service.choiceitem.ChoiceComputer;
-import service.choiceitem.ChoiceUser;
 import service.file.FileService;
 import service.file.TextFileService;
 import service.io.ConsoleMassageService;
 import service.parser.JsonParserService;
 
-import java.io.IOException;
-import java.util.Random;
 
+/**
+ * Основной класс действий шага игры.
+ */
 public class StepGame {
 
-    public enum Action {
-        ATTACK("Атака"),
-        DEFENSE("Защита");
+    private static final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
 
-        private final String name;
+    private final StateStepGame stateStepGame = StateStepGame.getInstance();
 
-        Action(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
+    /**
+     * Печать выбора артефакта и действия игрока.
+     */
+    public void printStepSelectGamer() {
+        consoleMassageService.print("Вы выбрали: "
+                + stateStepGame.getItemsGamer().toString() + ". Действие: "
+                + stateStepGame.getActionGamer().getName(), ConsoleMassageService.Color.GREEN);
     }
 
-    private static Hero heroGamer;
-    private static Item itemsGamer;
-    private static Action actionGamer;
-
-    private static Hero heroComputer;
-    private static Item itemsComputer;
-    private static Action actionComputer;
-
-    public static Hero getHeroGamer() {
-        return heroGamer;
+    /**
+     * Печать выбора артефакта и действия компьютера.
+     */
+    public void printStepSelectComputer() {
+        consoleMassageService.print("Компьютер выбрал: "
+                + stateStepGame.getItemsComputer().toString() + ". Действие: "
+                + stateStepGame.getActionComputer().getName(), ConsoleMassageService.Color.PURPLE);
     }
 
-    public static void setHeroGamer(Hero heroGamer) {
-        StepGame.heroGamer = heroGamer;
+    /**
+     * Печать результата битвы (остаток жизней).
+     */
+    public void printStepResult() {
+        consoleMassageService.print("Результаты битвы:");
+        consoleMassageService.print("Осталось жизней у вас: " + stateStepGame.getHeroGamer().getHp());
+        consoleMassageService.print("Осталось жизней у компьютера: " + stateStepGame.getHeroComputer().getHp());
     }
 
-    public static Hero getHeroComputer() {
-        return heroComputer;
-    }
-
-    public static void setHeroComputer(Hero heroComputer) {
-        StepGame.heroComputer = heroComputer;
-    }
-
-    public static void setItemsGamer(Item itemsGamer) {
-        StepGame.itemsGamer = itemsGamer;
-    }
-
-    public static void setItemsComputer(Item itemsComputer) {
-        StepGame.itemsComputer = itemsComputer;
-    }
-
-    public static void selectItemGamer(int indexSelected) {
-        itemsGamer = ChoiceUser.getItems().get(indexSelected);
-    }
-
-    public static void selectItemComputer() {
-        itemsComputer = ChoiceComputer.getItems().get(new Random().nextInt(ChoiceComputer.getItems().size()));
-    }
-
-    public static void selectActionGamer(int indexSelected) {
-        actionGamer = Action.values()[indexSelected];
-    }
-
-    public static void selectActionComputer() {
-        actionComputer = Action.values()[new Random().nextInt(Action.values().length)];
-    }
-
-    public static void printStepSelectGamer() {
-        ConsoleMassageService.getInstance().print(
-                "Вы выбрали: "
-                        + itemsGamer.toString() + ". Действие: "
-                        + actionGamer.getName(), ConsoleMassageService.Color.GREEN);
-    }
-
-    public static void printStepSelectComputer() {
-        ConsoleMassageService.getInstance().print(
-                "Компьютер выбрал: "
-                        + itemsComputer.toString() + ". Действие: "
-                        + actionComputer.getName(), ConsoleMassageService.Color.PURPLE);
-    }
-
-    public static void printStepResult() {
-        ConsoleMassageService.getInstance().print("Результаты битвы:");
-        ConsoleMassageService.getInstance().print("Осталось жизней у вас: " + heroGamer.getHp());
-        ConsoleMassageService.getInstance().print("Осталось жизней у компьютера: " + heroComputer.getHp());
-    }
-
-    private static void saveStepResult() {
+    private void saveStepResult() {
         try {
             new TextFileService().writeTextToFile(FileService.saveDirectory, FileService.saveHeroGamerFile,
-                    new JsonParserService().parseHeroToString(heroGamer));
+                    new JsonParserService().parseHeroToString(stateStepGame.getHeroGamer()));
             new TextFileService().writeTextToFile(FileService.saveDirectory, FileService.saveHeroComputerFile,
-                    new JsonParserService().parseHeroToString(heroComputer));
+                    new JsonParserService().parseHeroToString(stateStepGame.getHeroComputer()));
         } catch (IOException e) {
             ConsoleMassageService.getInstance().print(e.getMessage());
         }
     }
 
-    public static void fight() {
-        switch (actionGamer) {
+    /**
+     * Шаг атаки между героями. Расчет остатка жизней.
+     */
+    public void fight() {
+        switch (stateStepGame.getActionGamer()) {
             case ATTACK -> {
                 float attackGamer = 0;
-                if (itemsGamer instanceof SimpleItem) {
-                    float randomAttackGamer = getRandom0to1();
-                    attackGamer = heroGamer.getSkillAttack() * ((SimpleItem) itemsGamer).getDamage() * randomAttackGamer;
+                if (stateStepGame.getItemsGamer().getCategory() == ItemCategory.SIMPLE) {
+                    attackGamer = calculateResult(stateStepGame.getHeroGamer().getSkillAttack(),
+                            ((SimpleItem) stateStepGame.getItemsGamer()).getDamage());
                 }
-                switch (actionComputer) {
+                switch (stateStepGame.getActionComputer()) {
                     case ATTACK -> {
                         float attackComputer = 0;
-                        if (itemsComputer instanceof SimpleItem) {
-                            float randomAttackComp = getRandom0to1();
-                            attackComputer = heroComputer.getSkillAttack() * ((SimpleItem) itemsComputer).getDamage()
-                                    * randomAttackComp;
+                        if (stateStepGame.getItemsComputer().getCategory() == ItemCategory.SIMPLE) {
+                            attackComputer = calculateResult(stateStepGame.getHeroComputer().getSkillAttack(),
+                                    ((SimpleItem) stateStepGame.getItemsComputer()).getDamage());
                         }
-                        heroComputer.setHp(heroComputer.getHp() - attackGamer);
-                        if (heroComputer.getHp() < 0) heroComputer.setHp(0);
-                        heroGamer.setHp(heroGamer.getHp() - attackComputer);
-                        if (heroGamer.getHp() < 0) heroGamer.setHp(0);
+                        setHp(stateStepGame.getHeroComputer(), attackGamer);
+                        setHp(stateStepGame.getHeroGamer(), attackComputer);
                     }
                     case DEFENSE -> {
                         float defenseComputer = 0;
-                        if (itemsComputer instanceof SimpleItem) {
-                            float randomDefenseComp = getRandom0to1();
-                            defenseComputer = heroComputer.getSkillDefense() * ((SimpleItem) itemsComputer).getDefense()
-                                    * randomDefenseComp;
+                        if (stateStepGame.getItemsComputer().getCategory() == ItemCategory.SIMPLE) {
+                            defenseComputer = calculateResult(stateStepGame.getHeroComputer().getSkillDefense(),
+                                    ((SimpleItem) stateStepGame.getItemsComputer()).getDefense());
                         }
                         if (attackGamer > defenseComputer) {
-                            heroComputer.setHp(heroComputer.getHp() - (attackGamer - defenseComputer));
-                            if (heroComputer.getHp() < 0) heroComputer.setHp(0);
+                            setHp(stateStepGame.getHeroComputer(), attackGamer);
                         }
+                    }
+                    default -> {
+                        ConsoleMassageService.getInstance().print("Выбрано неизвестное действие");
                     }
                 }
             }
             case DEFENSE -> {
                 float defenseGamer = 0;
-                if (itemsGamer instanceof SimpleItem) {
-                    float randomDefenseGamer = getRandom0to1();
-                    defenseGamer = heroGamer.getSkillDefense() * ((SimpleItem) itemsGamer).getDefense()
-                            * randomDefenseGamer;
+                if (stateStepGame.getItemsGamer().getCategory() == ItemCategory.SIMPLE) {
+                    defenseGamer = calculateResult(stateStepGame.getHeroGamer().getSkillDefense(),
+                            ((SimpleItem) stateStepGame.getItemsGamer()).getDefense());
                 }
-                switch (actionComputer) {
+                switch (stateStepGame.getActionComputer()) {
                     case ATTACK:
                         float attackComputer = 0;
-                        if (itemsComputer instanceof SimpleItem) {
-                            float randomAttackComp = getRandom0to1();
-                            attackComputer = heroComputer.getSkillAttack() * ((SimpleItem) itemsComputer).getDamage()
-                                    * randomAttackComp;
+                        if (stateStepGame.getItemsComputer().getCategory() == ItemCategory.SIMPLE) {
+                            attackComputer = calculateResult(
+                                    stateStepGame.getHeroComputer().getSkillAttack(),
+                                    ((SimpleItem) stateStepGame.getItemsComputer()).getDamage());
                         }
                         if (attackComputer > defenseGamer) {
-                            heroGamer.setHp(heroGamer.getHp() - (attackComputer - defenseGamer));
-                            if (heroGamer.getHp() < 0) heroGamer.setHp(0);
+                            setHp(stateStepGame.getHeroGamer(), attackComputer);
                         }
                         break;
                     case DEFENSE:
                         break;
+                    default:
+                        ConsoleMassageService.getInstance().print("Выбрано неизвестное действие");
+                        break;
                 }
+            }
+            default -> {
+                ConsoleMassageService.getInstance().print("Выбрано неизвестное действие");
             }
         }
         saveStepResult();
     }
 
-    private static float getRandom0to1(){
-        float random = (int)(Math.round(new Random().nextFloat() * 10));
+    private void setHp(Hero hero, float attack) {
+        hero.setHp(hero.getHp() - attack);
+        if (hero.getHp() < 0) {
+            hero.setHp(0);
+        }
+    }
+
+    private float calculateResult(float skillHero, float powerItem) {
+        float result = (int) (Math.round(skillHero * powerItem * getRandom0to1() * 10));
+        return result / 10;
+    }
+
+    private float getRandom0to1() {
+        float random = (int) (Math.round(new Random().nextFloat() * 10));
         return random / 10;
     }
 }

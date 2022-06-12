@@ -3,10 +3,8 @@ package service.choiceitem;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-
 import model.Hero;
 import model.Item;
-import model.SimpleItem;
 import service.file.FileService;
 import service.io.ConsoleMassageService;
 
@@ -14,6 +12,12 @@ import service.io.ConsoleMassageService;
  * Выбор героя и артефактов компьютера.
  */
 public class ChoiceComputer extends ChoiceService {
+
+    /**
+     * Сервис вывода на экран.
+     */
+    private static final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
+
 
     private static Hero heroComputer;
 
@@ -43,10 +47,8 @@ public class ChoiceComputer extends ChoiceService {
     public void selectedHero(Hero hero) throws IOException {
         super.saveSelectedHero(hero, FileService.saveHeroComputerFile);
         heroComputer = hero;
-        ConsoleMassageService.getInstance()
-                .print("Компьютер выбрал героя:", ConsoleMassageService.Color.PURPLE);
-        ConsoleMassageService.getInstance()
-                .print(hero.toString(), ConsoleMassageService.Color.PURPLE);
+        consoleMassageService.print("Компьютер выбрал героя:", ConsoleMassageService.Color.PURPLE);
+        consoleMassageService.print(hero.toString(), ConsoleMassageService.Color.PURPLE);
 
     }
 
@@ -59,11 +61,9 @@ public class ChoiceComputer extends ChoiceService {
     public void selectedItem(Item artefact) throws IOException {
         itemsComputer = super.saveSelectedItem(artefact, itemsComputer, FileService.saveItemComputerFile);
         int currentNumber = itemsComputer.lastIndexOf(artefact) + 1;
-        ConsoleMassageService.getInstance().print(
-                "Компьютер выбрал артефакт № " + currentNumber
+        consoleMassageService.print("Компьютер выбрал артефакт № " + currentNumber
                         + ":", ConsoleMassageService.Color.PURPLE);
-        ConsoleMassageService.getInstance()
-                .print(artefact.toString(), ConsoleMassageService.Color.PURPLE);
+        consoleMassageService.print(artefact.toString(), ConsoleMassageService.Color.PURPLE);
     }
 
     public Hero getRandomHeroFromListWithoutUserHero(List<Hero> listAccessibleHero) {

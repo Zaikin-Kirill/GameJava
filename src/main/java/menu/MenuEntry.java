@@ -14,6 +14,11 @@ public abstract class MenuEntry {
      */
     private String title;
 
+    /**
+     * Сервис вывода на экран.
+     */
+    private final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
+
     public MenuEntry() {
     }
 
@@ -25,10 +30,6 @@ public abstract class MenuEntry {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public abstract void run();
 
     /**
@@ -37,7 +38,7 @@ public abstract class MenuEntry {
      * @param titleText  - текст для вывода
      */
     public void printTitle(String titleText) {
-        ConsoleMassageService.getInstance().print(titleText);
+        consoleMassageService.print(titleText);
     }
 
     /**
@@ -48,7 +49,7 @@ public abstract class MenuEntry {
     public void printMenu(List<MenuEntry> menu) {
 
         for (MenuEntry point : menu) {
-            ConsoleMassageService.getInstance().print(point.getTitle());
+            consoleMassageService.print(point.getTitle());
         }
     }
 
@@ -60,9 +61,9 @@ public abstract class MenuEntry {
     public int selectedNumberUser() {
         int inputNumber = -1;
         try {
-            inputNumber = ConsoleMassageService.getInstance().inputNumber();
+            inputNumber = consoleMassageService.inputNumber();
         } catch (IOException e) {
-            ConsoleMassageService.getInstance().print(e.getMessage());
+            consoleMassageService.print(e.getMessage());
             selectedNumberUser();
         }
         return inputNumber;

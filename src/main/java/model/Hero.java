@@ -29,7 +29,7 @@ public class Hero {
     /**
      * Создание героя.
      *
-     * @param type         - название героя
+     * @param type         - тип героя
      * @param hp           - здоровье героя
      * @param skillAttack  - скилл атаки героя
      * @param skillDefense - скилл защиты героя

@@ -20,6 +20,11 @@ public class SelectHeroMenu extends MenuEntry {
     private final List<MenuEntry> menu = new ArrayList<>();
     private int serialNumber = 1;
 
+    /**
+     * Сервис вывода на экран.
+     */
+    private final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
+
     public SelectHeroMenu(String title) {
         super(title);
     }
@@ -56,7 +61,7 @@ public class SelectHeroMenu extends MenuEntry {
                 super.selectItemMenu(menu, selectedNumberUser - listHero.size());
             }
         } catch (IndexOutOfBoundsException e) {
-            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
+            consoleMassageService.print("Введите число из диапазона меню");
             selectOrJumpMenu(listHero);
         }
     }
@@ -72,7 +77,7 @@ public class SelectHeroMenu extends MenuEntry {
             doChoiceHeroComputer(listHero);
             new SelectArtefactMenu().run();
         } catch (IOException mes) {
-            ConsoleMassageService.getInstance().print(mes.getMessage());
+            consoleMassageService.print(mes.getMessage());
             selectOrJumpMenu(listHero);
         }
     }
@@ -84,7 +89,7 @@ public class SelectHeroMenu extends MenuEntry {
             choiceComputer.selectedHero(
                     choiceComputer.getRandomHeroFromListWithoutUserHero(listHero));
         } catch (IOException mes) {
-            ConsoleMassageService.getInstance().print(mes.getMessage());
+            consoleMassageService.print(mes.getMessage());
         }
     }
 

@@ -1,18 +1,28 @@
 package menu;
 
-import model.Hero;
-import model.Item;
-import model.SimpleItem;
-import service.choiceitem.ChoiceComputer;
-import service.choiceitem.ChoiceUser;
-import service.game.StepGame;
-import service.io.ConsoleMassageService;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Item;
+import service.choiceitem.ChoiceComputer;
+import service.choiceitem.ChoiceUser;
+import service.game.LoadGame;
+import service.game.StateStepGame;
+import service.io.ConsoleMassageService;
 
+
+/**
+ * Меню выбора артефакта на шаге игры.
+ */
 public class StepSelectArtefactMenu extends MenuEntry {
+
+    private boolean isloadGame = false;
+
+    private final StateStepGame stateStepGame = StateStepGame.getInstance();
+
+    /**
+     * Сервис вывода на экран.
+     */
+    private final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
 
     public StepSelectArtefactMenu() {
     }
@@ -21,19 +31,27 @@ public class StepSelectArtefactMenu extends MenuEntry {
         super(title);
     }
 
+    public StepSelectArtefactMenu(String title, boolean isloadGame) {
+        super(title);
+        this.isloadGame = isloadGame;
+    }
+
     private final List<MenuEntry> menu = new ArrayList<>();
     private int serialNumber = 1;
 
     @Override
     public void run() {
 
-        StepGame.setHeroGamer(ChoiceUser.getHero());
-        StepGame.setHeroComputer(ChoiceComputer.getHero());
+        if (isloadGame) {
+            new LoadGame().loadSaveGame();
+        }
+
+        stateStepGame.setHeroGamer(ChoiceUser.getHero());
+        stateStepGame.setHeroComputer(ChoiceComputer.getHero());
 
         super.printTitle("Выберите артефакт:");
         for (Item item : ChoiceUser.getItems()) {
-            ConsoleMassageService.getInstance()
-                    .print(serialNumber + ". " + item.toString());
+            consoleMassageService.print(serialNumber + ". " + item.toString());
             serialNumber++;
         }
 
@@ -48,14 +66,14 @@ public class StepSelectArtefactMenu extends MenuEntry {
         try {
             int selectedNumberUser = super.selectedNumberUser();
             if (selectedNumberUser < ChoiceUser.getItems().size()) {
-                StepGame.selectItemGamer(selectedNumberUser);
-                StepGame.selectItemComputer();
+                stateStepGame.selectItemGamer(selectedNumberUser);
+                stateStepGame.selectItemComputer();
                 new StepSelectActionMenu().run();
             } else {
                 super.selectItemMenu(menu, selectedNumberUser - ChoiceUser.getItems().size());
             }
         } catch (IndexOutOfBoundsException e) {
-            ConsoleMassageService.getInstance().print("Введите число из диапазона меню");
+            consoleMassageService.print("Введите число из диапазона меню");
             selectOrJumpMenu();
         }
     }

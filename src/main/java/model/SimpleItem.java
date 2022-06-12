@@ -21,23 +21,18 @@ public class SimpleItem extends Item {
         super(type);
         this.damage = damage;
         this.defense = defense;
+        this.category = ItemCategory.SIMPLE;
     }
 
     public float getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
 
     public float getDefense() {
         return defense;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
 
     @Override
     public String toString() {
