@@ -22,6 +22,7 @@ public class MainMenu extends MenuEntry {
     @Override
     public void run() {
 
+        addPoint(new HttpRequestMenu(serialNumber + ". Отправить запрос"));
         addPoint(new RuleMenu(serialNumber + ". Правила игры"));
 
         if (new TextFileService().checkSaveFile()) {

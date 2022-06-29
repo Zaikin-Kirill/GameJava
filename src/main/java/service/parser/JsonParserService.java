@@ -47,4 +47,9 @@ public class JsonParserService implements ParserService {
     public String parseListItemsToString(List<Item> items) {
         return new Gson().toJson(items);
     }
+
+    @Override
+    public String[] getArrayStringFromJsonString(String jsonString) {
+        return new Gson().fromJson(jsonString, String[].class);
+    }
 }

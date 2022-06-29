@@ -21,4 +21,6 @@ public interface ParserService {
 
     String parseListItemsToString(List<Item> items);
 
+    String[] getArrayStringFromJsonString(String jsonString);
+
 }

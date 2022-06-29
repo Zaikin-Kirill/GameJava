@@ -5,6 +5,9 @@ import service.choiceitem.ChoiceComputer;
 import service.choiceitem.ChoiceUser;
 import service.io.ConsoleMassageService;
 
+import static service.io.ConsoleMassageService.Color.GREEN;
+import static service.io.ConsoleMassageService.Color.PURPLE;
+
 /**
  * Сервис помощи в игре.
  */
@@ -16,18 +19,18 @@ public class GameService {
      * Печать полной сводной информации о героях и артефактах.
      */
     public void printAllInfo() {
-        consoleMassageService.print("Ваш герой:", ConsoleMassageService.Color.GREEN);
-        consoleMassageService.print(ChoiceUser.getHero().toString(), ConsoleMassageService.Color.GREEN);
-        consoleMassageService.print("Ваши артефакты: ", ConsoleMassageService.Color.GREEN);
+        consoleMassageService.print("Ваш герой:", GREEN);
+        consoleMassageService.print(ChoiceUser.getHero().toString(), GREEN);
+        consoleMassageService.print("Ваши артефакты: ", GREEN);
         for (Item item : ChoiceUser.getItems()) {
-            consoleMassageService.print(item.toString(), ConsoleMassageService.Color.GREEN);
+            consoleMassageService.print(item.toString(), GREEN);
         }
 
-        consoleMassageService.print("Герой компьютера:", ConsoleMassageService.Color.PURPLE);
-        consoleMassageService.print(ChoiceComputer.getHero().toString(), ConsoleMassageService.Color.PURPLE);
-        consoleMassageService.print("Артефакты компьютера: ", ConsoleMassageService.Color.PURPLE);
+        consoleMassageService.print("Герой компьютера:", PURPLE);
+        consoleMassageService.print(ChoiceComputer.getHero().toString(), PURPLE);
+        consoleMassageService.print("Артефакты компьютера: ", PURPLE);
         for (Item item : ChoiceComputer.getItems()) {
-            consoleMassageService.print(item.toString(), ConsoleMassageService.Color.PURPLE);
+            consoleMassageService.print(item.toString(), PURPLE);
         }
     }
 }
