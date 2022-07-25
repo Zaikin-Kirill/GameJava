@@ -17,13 +17,11 @@ import service.parser.JsonParserService;
  */
 public class SelectArtefactMenu extends MenuEntry {
 
-    private final List<MenuEntry> menu = new ArrayList<>();
-    private int serialNumber = 1;
 
     /**
      * Сервис вывода на экран.
      */
-    private ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
+    private final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
 
     @Override
     public void run() {
@@ -50,7 +48,7 @@ public class SelectArtefactMenu extends MenuEntry {
 
     private void selectOrJumpMenu(List<Item> listSimpleItem) {
         try {
-            int selectedNumberUser = super.selectedNumberUser();
+            int selectedNumberUser = super.selectedNumberUser(serialNumber);
             if (selectedNumberUser < listSimpleItem.size()) {
                 selectSimpleItem(listSimpleItem, selectedNumberUser);
             } else {
@@ -92,8 +90,4 @@ public class SelectArtefactMenu extends MenuEntry {
         }
     }
 
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
-        serialNumber++;
-    }
 }

@@ -2,5 +2,5 @@ package service.webapi;
 
 public interface ApiService {
 
-    StringBuilder sendGetRequest(String targetUrl);
+    String sendGetRequest(String targetUrl);
 }

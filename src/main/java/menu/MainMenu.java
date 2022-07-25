@@ -1,7 +1,5 @@
 package menu;
 
-import java.util.ArrayList;
-import java.util.List;
 import service.file.TextFileService;
 
 /**
@@ -9,8 +7,6 @@ import service.file.TextFileService;
  */
 public class MainMenu extends MenuEntry {
 
-    private final List<MenuEntry> menu = new ArrayList<>();
-    private int serialNumber = 1;
 
     public MainMenu() {
     }
@@ -33,16 +29,8 @@ public class MainMenu extends MenuEntry {
         addPoint(new ExitMenu(serialNumber + ". Выход"));
         super.printTitle("Привет, юзер! Давай сыграем в игру 'Битва Героев'. \nВыбери действие:");
         super.printMenu(menu);
-        int selectedNumberUser = super.selectedNumberUser();
+        int selectedNumberUser = super.selectedNumberUser(serialNumber);
         super.selectItemMenu(menu, selectedNumberUser);
     }
-
-
-
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
-        serialNumber++;
-    }
-
 
 }

@@ -1,7 +1,5 @@
 package menu;
 
-import java.util.ArrayList;
-import java.util.List;
 import service.game.GameService;
 
 
@@ -13,23 +11,19 @@ public class ReadyStartGameMenu extends MenuEntry {
     public ReadyStartGameMenu() {
     }
 
-    private final List<MenuEntry> menu = new ArrayList<>();
 
     @Override
     public void run() {
-        addPoint(new StepSelectArtefactMenu("1. Да"));
-        addPoint(new SelectHeroMenu("2. Вернуться в выбор персонажа"));
-        addPoint(new ExitMenu("3. Выход"));
+        addPoint(new StepSelectArtefactMenu(serialNumber + ". Да"));
+        addPoint(new SelectHeroMenu(serialNumber + ". Вернуться в выбор персонажа"));
+        addPoint(new ExitMenu(serialNumber + ". Выход"));
 
         new GameService().printAllInfo();
 
         super.printTitle("Начать игру?");
         super.printMenu(menu);
-        int selectedNumberUser = super.selectedNumberUser();
+        int selectedNumberUser = super.selectedNumberUser(serialNumber);
         super.selectItemMenu(menu, selectedNumberUser);
     }
 
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
-    }
 }

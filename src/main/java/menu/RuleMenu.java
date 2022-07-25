@@ -1,8 +1,6 @@
 package menu;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import service.file.FileService;
 import service.file.TextFileService;
 import service.io.ConsoleMassageService;
@@ -17,22 +15,16 @@ public class RuleMenu extends MenuEntry {
         super(title);
     }
 
-    private final List<MenuEntry> menu = new ArrayList<>();
-
 
     @Override
     public void run() {
-        addPoint(new MainMenu("1. Вернуться в меню"));
-        addPoint(new ExitMenu("2. Выход"));
+        addPoint(new MainMenu(serialNumber + ". Вернуться в меню"));
+        addPoint(new ExitMenu(serialNumber + ". Выход"));
         super.printTitle("Правила игры:");
         printTextRules();
         super.printMenu(menu);
-        int selectedNumberUser = super.selectedNumberUser();
+        int selectedNumberUser = super.selectedNumberUser(serialNumber);
         super.selectItemMenu(menu, selectedNumberUser);
-    }
-
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
     }
 
     private void printTextRules() {

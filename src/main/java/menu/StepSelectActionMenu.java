@@ -1,7 +1,5 @@
 package menu;
 
-import java.util.ArrayList;
-import java.util.List;
 import service.file.FileService;
 import service.file.TextFileService;
 import service.game.Action;
@@ -15,8 +13,6 @@ import service.io.ConsoleMassageService;
  */
 public class StepSelectActionMenu extends MenuEntry {
 
-    private final List<MenuEntry> menu = new ArrayList<>();
-    private int serialNumber = 1;
 
     /**
      * Сервис вывода на экран.
@@ -41,7 +37,7 @@ public class StepSelectActionMenu extends MenuEntry {
 
     private void selectOrJumpMenu() {
         try {
-            int selectedNumberUser = super.selectedNumberUser();
+            int selectedNumberUser = super.selectedNumberUser(serialNumber);
             if (selectedNumberUser < Action.values().length) {
                 StateStepGame stateStepGame = StateStepGame.getInstance();
                 stateStepGame.selectActionGamer(selectedNumberUser);
@@ -73,8 +69,4 @@ public class StepSelectActionMenu extends MenuEntry {
         }
     }
 
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
-        serialNumber++;
-    }
 }

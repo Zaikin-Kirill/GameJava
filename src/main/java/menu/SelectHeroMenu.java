@@ -17,8 +17,6 @@ import service.parser.JsonParserService;
  */
 public class SelectHeroMenu extends MenuEntry {
 
-    private final List<MenuEntry> menu = new ArrayList<>();
-    private int serialNumber = 1;
 
     /**
      * Сервис вывода на экран.
@@ -54,7 +52,7 @@ public class SelectHeroMenu extends MenuEntry {
 
     private void selectOrJumpMenu(List<Hero> listHero) {
         try {
-            int selectedNumberUser = super.selectedNumberUser();
+            int selectedNumberUser = super.selectedNumberUser(serialNumber);
             if (selectedNumberUser < listHero.size()) {
                 selectHero(listHero, selectedNumberUser);
             } else {
@@ -64,11 +62,6 @@ public class SelectHeroMenu extends MenuEntry {
             consoleMassageService.print("Введите число из диапазона меню");
             selectOrJumpMenu(listHero);
         }
-    }
-
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
-        serialNumber++;
     }
 
     private void selectHero(List<Hero> listHero, int indexSelected) {

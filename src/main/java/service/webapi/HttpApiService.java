@@ -15,7 +15,7 @@ public class HttpApiService implements ApiService{
     private final ConsoleMassageService consoleMassageService = ConsoleMassageService.getInstance();
 
     @Override
-    public StringBuilder sendGetRequest(String targetUrl) {
+    public String sendGetRequest(String targetUrl) {
         HttpURLConnection connection = null;
         int timeoutValue = 5000;
         try {
@@ -41,7 +41,7 @@ public class HttpApiService implements ApiService{
                 response.append(inputLine);
             }
             in.close();
-            return response;
+            return response.toString();
         }
         catch (SocketTimeoutException e) {
             consoleMassageService.print("Превышен таймаут: " + timeoutValue);

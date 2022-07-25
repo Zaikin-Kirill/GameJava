@@ -1,7 +1,5 @@
 package menu;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.Item;
 import service.choiceitem.ChoiceComputer;
 import service.choiceitem.ChoiceUser;
@@ -36,9 +34,6 @@ public class StepSelectArtefactMenu extends MenuEntry {
         this.isloadGame = isloadGame;
     }
 
-    private final List<MenuEntry> menu = new ArrayList<>();
-    private int serialNumber = 1;
-
     @Override
     public void run() {
 
@@ -55,8 +50,8 @@ public class StepSelectArtefactMenu extends MenuEntry {
             serialNumber++;
         }
 
-        addPoint(new MainMenu(serialNumber + ". " + "Вернуться в главное меню"));
-        addPoint(new ExitMenu(serialNumber + ". " + "Выход"));
+        addPoint(new MainMenu(serialNumber + ". Вернуться в главное меню"));
+        addPoint(new ExitMenu(serialNumber + ". Выход"));
 
         super.printMenu(menu);
         selectOrJumpMenu();
@@ -64,7 +59,7 @@ public class StepSelectArtefactMenu extends MenuEntry {
 
     private void selectOrJumpMenu() {
         try {
-            int selectedNumberUser = super.selectedNumberUser();
+            int selectedNumberUser = super.selectedNumberUser(serialNumber);
             if (selectedNumberUser < ChoiceUser.getItems().size()) {
                 stateStepGame.selectItemGamer(selectedNumberUser);
                 stateStepGame.selectItemComputer();
@@ -78,8 +73,4 @@ public class StepSelectArtefactMenu extends MenuEntry {
         }
     }
 
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
-        serialNumber++;
-    }
 }

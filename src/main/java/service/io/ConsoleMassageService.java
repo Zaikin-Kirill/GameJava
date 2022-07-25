@@ -60,7 +60,7 @@ public class ConsoleMassageService implements MessageService {
         Scanner scanner = new Scanner(System.in);
         int i;
         if (scanner.hasNextInt()) {
-            i = scanner.nextInt() - 1;
+            i = scanner.nextInt();
         } else {
             throw new IOException("Вы ввели не число");
         }

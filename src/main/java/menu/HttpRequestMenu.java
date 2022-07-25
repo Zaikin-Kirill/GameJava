@@ -1,11 +1,8 @@
 package menu;
 
+import service.builder.NameBuilderService;
 import service.io.ConsoleMassageService;
-import service.parser.JsonParserService;
-import service.webapi.HttpApiService;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class HttpRequestMenu extends MenuEntry {
 
@@ -13,39 +10,29 @@ public class HttpRequestMenu extends MenuEntry {
         super(title);
     }
 
-    private final List<MenuEntry> menu = new ArrayList<>();
+    private static final String BASE_URL = "https://random-word-form.herokuapp.com/random";
 
     @Override
     public void run() {
-        String targetUrlAnimal = "https://random-word-form.herokuapp.com/random/animal";
-        String targetUrlAdjective = "https://random-word-form.herokuapp.com/random/adjective";
+        final int countName = 2;
+        String targetUrlAnimal = BASE_URL + "/animal";
+        String targetUrlAdjective = BASE_URL + "/adjective";
+        NameBuilderService nameBuilderService = new NameBuilderService();
 
-        addPoint(new MainMenu("1. Вернуться в меню"));
-        addPoint(new ExitMenu("2. Выход"));
+        addPoint(new MainMenu(serialNumber + ". Вернуться в меню"));
+        addPoint(new ExitMenu(serialNumber + ". Выход"));
         super.printTitle("Результат запроса:");
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < countName; i++) {
             ConsoleMassageService.getInstance().
-                    print(getRequestRandomWord(targetUrlAdjective)
-                            + " "
-                            + getRequestRandomWord(targetUrlAnimal));
+                    print(String.format("%s %s",
+                            nameBuilderService.getRequestRandomWord(targetUrlAdjective),
+                            nameBuilderService.getRequestRandomWord(targetUrlAnimal)));
         }
 
         super.printMenu(menu);
-        int selectedNumberUser = super.selectedNumberUser();
+        int selectedNumberUser = super.selectedNumberUser(serialNumber);
         super.selectItemMenu(menu, selectedNumberUser);
     }
 
-    private void addPoint(MenuEntry entry) {
-        menu.add(entry);
-    }
 
-    private String getRequestRandomWord(String targetUrl) {
-        HttpApiService httpService = new HttpApiService();
-        StringBuilder response = httpService.sendGetRequest(targetUrl);
-        if (response != null) {
-            String[] arrayString = new JsonParserService().getArrayStringFromJsonString(response.toString());
-            return arrayString[0];
-        }
-        return "";
-    }
 }
